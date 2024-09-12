@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
 import "./App.css";
 import Labs from "./Labs";
 import { HashRouter, Navigate, Route, Routes } from "react-router-dom";

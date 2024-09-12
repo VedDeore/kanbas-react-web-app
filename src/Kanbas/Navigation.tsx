@@ -27,7 +27,7 @@ export default function KanbasNavigation() {
       </Link>
       <br />
       <Link to="/Labs" id="wd-labs-link">
-        Labs
+        Labs / Landing Page
       </Link>
       <br />
     </div>

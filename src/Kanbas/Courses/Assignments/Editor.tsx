@@ -9,7 +9,7 @@ export default function AssignmentEditor() {
       <input id="wd-name" value="A1 - ENV + HTML" />
       <br />
       <br />
-      <textarea id="wd-description">
+      <textarea id="wd-description" cols={30} rows={10}>
         The assignment is available online Submit a link to the landing page of.
       </textarea>
       <br />
@@ -131,8 +131,8 @@ export default function AssignmentEditor() {
         </tr>
         <tr>
           <td colSpan={2} align="right">
-            <button>Cancel</button>
-            <button>Save</button>
+            <button type="button">Cancel</button>
+            <button type="button">Save</button>
           </td>
         </tr>
       </table>

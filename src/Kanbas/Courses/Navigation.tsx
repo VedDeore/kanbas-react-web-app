@@ -31,7 +31,7 @@ export default function CoursesNavigation() {
         Grades
       </Link>
       <br />
-      <Link id="wd-course-people-link" to="/Kanbas/People">
+      <Link id="wd-course-people-link" to="/Kanbas/Courses/1234/People">
         People
       </Link>
       <br />

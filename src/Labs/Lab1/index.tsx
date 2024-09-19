@@ -320,7 +320,7 @@ export default function Lab1() {
       <a id="wd-lipsum" href="https://github.com/VedDeore/kanbas-react-web-app">
         click here
       </a>
-      for code repository
+      for code repository.
       <br />
     </div>
   );

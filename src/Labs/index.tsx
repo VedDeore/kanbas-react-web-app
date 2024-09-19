@@ -7,7 +7,7 @@ export default function Labs() {
   return (
     <div>
       <h1>Name: Ved Dipak Deore</h1>
-      <h2>Section: 20596</h2>
+      <h2>Section: 3</h2>
       <h1>Labs</h1>
       <TOC />
       <Routes>

@@ -20,7 +20,6 @@ export default function Assignments() {
             </div>
             <AssignmentControlButtons />
           </div>
-
           <ul className="wd-assignment-list list-group rounded-0">
             <li className="wd-assignment-list-item list-group-item p-3 ps-2">
               <div className="d-flex align-items-center">

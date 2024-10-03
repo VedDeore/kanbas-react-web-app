@@ -4,14 +4,25 @@ import GreenCheckmark from "./GreenCheckmark";
 
 export default function ModulesControls() {
   return (
-    <div id="wd-modules-controls" className="text-nowrap">
+    <div
+      id="wd-modules-controls"
+      className="d-flex flex-wrap justify-content-end"
+    >
       <button
-        id="wd-add-module-btn"
-        className="btn btn-lg btn-danger me-1 float-end"
+        id="wd-view-progress"
+        className="btn btn-lg btn-secondary me-1 float-end"
+        type="button"
       >
-        <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
-        Module
+        View Progress
       </button>
+      <button
+        id="wd-collapse-all"
+        className="btn btn-lg btn-secondary me-1 float-end"
+        type="button"
+      >
+        Collapse All
+      </button>
+
       <div className="dropdown d-inline me-1 float-end">
         <button
           id="wd-publish-all-btn"
@@ -66,18 +77,11 @@ export default function ModulesControls() {
         </ul>
       </div>
       <button
-        id="wd-collapse-all"
-        className="btn btn-lg btn-secondary me-1 float-end"
-        type="button"
+        id="wd-add-module-btn"
+        className="btn btn-lg btn-danger me-1 float-end"
       >
-        Collapse All
-      </button>
-      <button
-        id="wd-view-progress"
-        className="btn btn-lg btn-secondary me-1 float-end "
-        type="button"
-      >
-        View Progress
+        <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
+        Module
       </button>
     </div>
   );

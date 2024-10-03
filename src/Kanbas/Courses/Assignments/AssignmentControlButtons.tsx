@@ -4,12 +4,12 @@ import { BsPlusLg } from "react-icons/bs";
 export default function ModuleControlButtons() {
   return (
     <div>
-      <button
-        className="btn btn-outline-secondary text-black me-2"
+      <span
+        className="border border-black fs-6 p-2 text-black me-2"
         style={{ borderRadius: "50px" }}
       >
         40% of Total
-      </button>
+      </span>
       <BsPlusLg />
       <IoEllipsisVertical className="fs-4" />
     </div>

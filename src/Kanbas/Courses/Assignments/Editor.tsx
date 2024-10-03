@@ -3,7 +3,7 @@ import { MdCalendarMonth } from "react-icons/md";
 
 export default function AssignmentEditor() {
   return (
-    <div id="wd-assignments-editor" className="me-5">
+    <div id="wd-assignments-editor" className="me-3">
       <b>
         <label htmlFor="wd-name" className="mb-3">
           Assignment Name

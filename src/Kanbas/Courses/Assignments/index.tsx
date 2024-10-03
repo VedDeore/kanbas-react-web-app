@@ -7,7 +7,7 @@ import LessonControlButtons from "../Modules/LessonControlButtons";
 
 export default function Assignments() {
   return (
-    <div className="me-5">
+    <div className="me-3">
       <AssignmentSearch />
       <br />
       <ul id="wd-assignments" className="list-group rounded-0">

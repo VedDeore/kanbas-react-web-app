@@ -291,7 +291,7 @@ export default function Modules() {
                 <BsGripVertical className="me-5 fs-3" />
                 Full Stack Developer - Chapter 3 - Styling User Interfaces With
                 Cascading Style Sheets
-                <span className="ms-auto">
+                <span className="d-flex justify-content-between">
                   <LessonControlButtons />
                 </span>
               </div>

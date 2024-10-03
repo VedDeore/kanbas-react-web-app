@@ -24,7 +24,7 @@ export default function Assignments() {
             <li className="wd-assignment-list-item list-group-item p-3 ps-2">
               <div className="d-flex align-items-center">
                 <BsGripVertical className="me-2 fs-3" />
-                <MdOutlineAssignment className="me-3" />
+                <MdOutlineAssignment className="me-3 text-success" />
                 <span>
                   <a
                     className="wd-assignment-link text-dark text-decoration-none fw-bold"
@@ -45,7 +45,7 @@ export default function Assignments() {
             <li className="wd-assignment-list-item list-group-item p-3 ps-2">
               <div className="d-flex align-items-center">
                 <BsGripVertical className="me-2 fs-3" />
-                <MdOutlineAssignment className="me-3" />
+                <MdOutlineAssignment className="me-3 text-success" />
                 <span>
                   <a
                     className="wd-assignment-link text-dark text-decoration-none fw-bold"
@@ -66,7 +66,7 @@ export default function Assignments() {
             <li className="wd-assignment-list-item list-group-item p-3 ps-2">
               <div className="d-flex align-items-center">
                 <BsGripVertical className="me-2 fs-3" />
-                <MdOutlineAssignment className="me-3" />
+                <MdOutlineAssignment className="me-3 text-success" />
                 <span>
                   <a
                     className="wd-assignment-link text-dark text-decoration-none fw-bold"
@@ -87,7 +87,7 @@ export default function Assignments() {
             <li className="wd-assignment-list-item list-group-item p-3 ps-2">
               <div className="d-flex align-items-center">
                 <BsGripVertical className="me-2 fs-3" />
-                <MdOutlineAssignment className="me-3" />
+                <MdOutlineAssignment className="me-3 text-success" />
                 <span>
                   <a
                     className="wd-assignment-link text-dark text-decoration-none fw-bold"
@@ -108,7 +108,7 @@ export default function Assignments() {
             <li className="wd-assignment-list-item list-group-item p-3 ps-2">
               <div className="d-flex align-items-center">
                 <BsGripVertical className="me-2 fs-3" />
-                <MdOutlineAssignment className="me-3" />
+                <MdOutlineAssignment className="me-3 text-success" />
                 <span>
                   <a
                     className="wd-assignment-link text-dark text-decoration-none fw-bold"
@@ -129,7 +129,7 @@ export default function Assignments() {
             <li className="wd-assignment-list-item list-group-item p-3 ps-2">
               <div className="d-flex align-items-center">
                 <BsGripVertical className="me-2 fs-3" />
-                <MdOutlineAssignment className="me-3" />
+                <MdOutlineAssignment className="me-3 text-success" />
                 <span>
                   <a
                     className="wd-assignment-link text-dark text-decoration-none fw-bold"

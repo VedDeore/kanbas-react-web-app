@@ -3,31 +3,51 @@ export default function Profile() {
   return (
     <div id="wd-profile-screen">
       <h3>Profile</h3>
-      <input id="wd-username" value="alice" placeholder="username" />
-      <br />
+      <input
+        id="wd-username"
+        placeholder="username"
+        className="form-control mb-2"
+        value="alice"
+      />
       <input
         id="wd-password"
-        value="123"
         placeholder="password"
         type="password"
+        className="form-control mb-2"
+        value="123"
       />
-      <br />
-      <input id="wd-firstname" value="Alice" placeholder="First Name" />
-      <br />
-      <input id="wd-lastname" value="Wonderland" placeholder="Last Name" />
-      <br />
-      <input id="wd-dob" value="2000-01-01" type="date" />
-      <br />
-      <input id="wd-email" value="alice@wonderland" type="email" />
-      <br />
-      <select id="wd-role">
+      <input
+        id="wd-firstname"
+        placeholder="First Name"
+        className="form-control mb-2"
+        value="Alice"
+      />
+      <input
+        id="wd-lastname"
+        placeholder="Last Name"
+        className="form-control mb-2"
+        value="Wonderland"
+      />
+      <input id="wd-dob" className="form-control mb-2" type="date" />
+      <input
+        id="wd-email"
+        className="form-control mb-2"
+        value="alice@wonderland"
+        type="email"
+      />
+      <select id="wd-role" className="form-select mb-2">
         <option value="USER">User</option>
         <option value="ADMIN">Admin</option>
         <option value="FACULTY">Faculty</option>
         <option value="STUDENT">Student</option>
       </select>
-      <br />
-      <Link to="/Kanbas/Account/Signin">Sign out</Link>
+      <Link
+        id="wd-signout-link"
+        to="/Kanbas/Account/Signin"
+        className="btn btn-danger w-100"
+      >
+        Signout
+      </Link>
     </div>
   );
 }

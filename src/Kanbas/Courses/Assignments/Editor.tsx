@@ -91,11 +91,32 @@ export default function AssignmentEditor() {
                   <div className="ms-3 me-3">
                     <div className="pt-3 pb-3">
                       <select id="wd-submission-type" className="form-select">
-                        <option value="Online">Online</option>
+                        <option value="Online">
+                          {assignment.submissionType}
+                        </option>
                       </select>
                     </div>
                     <b>Online Entry Options</b>
-                    <div className="form-check">
+                    <div className="pt-2">
+                      {assignment.onlineEntryOptions.map(
+                        (option: { id: string; label: string }) => (
+                          <div className="form-check pb-3" key={option.id}>
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              id={option.id}
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor={option.id}
+                            >
+                              {option.label}
+                            </label>
+                          </div>
+                        )
+                      )}
+                    </div>
+                    {/* <div className="form-check">
                       <div className="pt-3 pb-3">
                         <input
                           className="form-check-input"
@@ -106,7 +127,7 @@ export default function AssignmentEditor() {
                           className="form-check-label"
                           htmlFor="wd-text-entry"
                         >
-                          Text Entry
+                          {assignment.onlineEntryOptions.text}
                         </label>
                       </div>
                       <div className="pb-3">
@@ -161,7 +182,7 @@ export default function AssignmentEditor() {
                           File Uploads
                         </label>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

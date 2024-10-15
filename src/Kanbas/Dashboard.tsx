@@ -21,6 +21,7 @@ export default function Dashboard() {
                   to={`/Kanbas/Courses/${course._id}/Home`}
                 >
                   <img
+                    style={{ objectFit: "contain" }}
                     src={`/images/${course.img}`}
                     width="100%"
                     height={160}

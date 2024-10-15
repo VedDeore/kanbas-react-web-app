@@ -6,6 +6,14 @@
     "points": 100,
     "assignmentGroup": "ASSIGNMENTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "May 13, 2024, 11:59 PM",
     "availableFrom": "May 06, 2024, 12:00 AM",
     "availableUntil": "May 20, 2024, 11:50 PM",
@@ -18,6 +26,14 @@
     "points": 80,
     "assignmentGroup": "ASSIGNMENTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "May 15, 2024, 11:59 PM",
     "availableFrom": "May 08, 2024, 12:00 AM",
     "availableUntil": "May 22, 2024, 11:50 PM",
@@ -30,6 +46,14 @@
     "points": 90,
     "assignmentGroup": "ASSIGNMENTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "May 17, 2024, 11:59 PM",
     "availableFrom": "May 10, 2024, 12:00 AM",
     "availableUntil": "May 24, 2024, 11:50 PM",
@@ -42,6 +66,14 @@
     "points": 85,
     "assignmentGroup": "ASSIGNMENTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "May 19, 2024, 11:59 PM",
     "availableFrom": "May 12, 2024, 12:00 AM",
     "availableUntil": "May 26, 2024, 11:50 PM",
@@ -54,6 +86,14 @@
     "points": 95,
     "assignmentGroup": "PROJECTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "May 21, 2024, 11:59 PM",
     "availableFrom": "May 14, 2024, 12:00 AM",
     "availableUntil": "May 28, 2024, 11:50 PM",
@@ -66,6 +106,14 @@
     "points": 70,
     "assignmentGroup": "QUIZZES",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "May 23, 2024, 11:59 PM",
     "availableFrom": "May 16, 2024, 12:00 AM",
     "availableUntil": "May 30, 2024, 11:50 PM",
@@ -78,6 +126,14 @@
     "points": 85,
     "assignmentGroup": "ASSIGNMENTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "May 25, 2024, 11:59 PM",
     "availableFrom": "May 18, 2024, 12:00 AM",
     "availableUntil": "June 01, 2024, 11:50 PM",
@@ -90,6 +146,14 @@
     "points": 90,
     "assignmentGroup": "PROJECTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "May 27, 2024, 11:59 PM",
     "availableFrom": "May 20, 2024, 12:00 AM",
     "availableUntil": "June 03, 2024, 11:50 PM",
@@ -102,6 +166,14 @@
     "points": 50,
     "assignmentGroup": "ASSIGNMENTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "May 29, 2024, 11:59 PM",
     "availableFrom": "May 22, 2024, 12:00 AM",
     "availableUntil": "June 05, 2024, 11:50 PM",
@@ -114,6 +186,14 @@
     "points": 75,
     "assignmentGroup": "PROJECTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "May 31, 2024, 11:59 PM",
     "availableFrom": "May 24, 2024, 12:00 AM",
     "availableUntil": "June 07, 2024, 11:50 PM",
@@ -126,6 +206,14 @@
     "points": 60,
     "assignmentGroup": "ASSIGNMENTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "June 02, 2024, 11:59 PM",
     "availableFrom": "May 25, 2024, 12:00 AM",
     "availableUntil": "June 09, 2024, 11:50 PM",
@@ -138,6 +226,14 @@
     "points": 100,
     "assignmentGroup": "ASSIGNMENTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "June 05, 2024, 11:59 PM",
     "availableFrom": "May 29, 2024, 12:00 AM",
     "availableUntil": "June 12, 2024, 11:50 PM",
@@ -150,6 +246,14 @@
     "points": 75,
     "assignmentGroup": "PROJECTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "June 07, 2024, 11:59 PM",
     "availableFrom": "May 31, 2024, 12:00 AM",
     "availableUntil": "June 14, 2024, 11:50 PM",
@@ -162,6 +266,14 @@
     "points": 80,
     "assignmentGroup": "ASSIGNMENTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "June 09, 2024, 11:59 PM",
     "availableFrom": "June 01, 2024, 12:00 AM",
     "availableUntil": "June 16, 2024, 11:50 PM",
@@ -174,6 +286,14 @@
     "points": 85,
     "assignmentGroup": "ASSIGNMENTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "June 12, 2024, 11:59 PM",
     "availableFrom": "June 05, 2024, 12:00 AM",
     "availableUntil": "June 19, 2024, 11:50 PM",
@@ -186,6 +306,14 @@
     "points": 70,
     "assignmentGroup": "QUIZZES",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "June 14, 2024, 11:59 PM",
     "availableFrom": "June 07, 2024, 12:00 AM",
     "availableUntil": "June 21, 2024, 11:50 PM",
@@ -198,6 +326,14 @@
     "points": 75,
     "assignmentGroup": "ASSIGNMENTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "June 16, 2024, 11:59 PM",
     "availableFrom": "June 09, 2024, 12:00 AM",
     "availableUntil": "June 23, 2024, 11:50 PM",
@@ -210,6 +346,14 @@
     "points": 90,
     "assignmentGroup": "PROJECTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "June 18, 2024, 11:59 PM",
     "availableFrom": "June 11, 2024, 12:00 AM",
     "availableUntil": "June 25, 2024, 11:50 PM",
@@ -222,6 +366,14 @@
     "points": 85,
     "assignmentGroup": "QUIZZES",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "June 20, 2024, 11:59 PM",
     "availableFrom": "June 13, 2024, 12:00 AM",
     "availableUntil": "June 27, 2024, 11:50 PM",
@@ -234,6 +386,14 @@
     "points": 80,
     "assignmentGroup": "ASSIGNMENTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "June 22, 2024, 11:59 PM",
     "availableFrom": "June 15, 2024, 12:00 AM",
     "availableUntil": "June 29, 2024, 11:50 PM",
@@ -246,6 +406,14 @@
     "points": 95,
     "assignmentGroup": "PROJECTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "June 24, 2024, 11:59 PM",
     "availableFrom": "June 17, 2024, 12:00 AM",
     "availableUntil": "July 01, 2024, 11:50 PM",
@@ -258,6 +426,14 @@
     "points": 80,
     "assignmentGroup": "ASSIGNMENTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "June 26, 2024, 11:59 PM",
     "availableFrom": "June 19, 2024, 12:00 AM",
     "availableUntil": "July 03, 2024, 11:50 PM",
@@ -270,6 +446,14 @@
     "points": 85,
     "assignmentGroup": "ASSIGNMENTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "June 28, 2024, 11:59 PM",
     "availableFrom": "June 21, 2024, 12:00 AM",
     "availableUntil": "July 05, 2024, 11:50 PM",
@@ -282,6 +466,14 @@
     "points": 100,
     "assignmentGroup": "PROJECTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "July 10, 2024, 11:59 PM",
     "availableFrom": "July 03, 2024, 12:00 AM",
     "availableUntil": "July 17, 2024, 11:50 PM",
@@ -294,6 +486,14 @@
     "points": 80,
     "assignmentGroup": "QUIZZES",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "July 12, 2024, 11:59 PM",
     "availableFrom": "July 05, 2024, 12:00 AM",
     "availableUntil": "July 19, 2024, 11:50 PM",
@@ -306,6 +506,14 @@
     "points": 90,
     "assignmentGroup": "ASSIGNMENTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "July 14, 2024, 11:59 PM",
     "availableFrom": "July 07, 2024, 12:00 AM",
     "availableUntil": "July 21, 2024, 11:50 PM",
@@ -318,6 +526,14 @@
     "points": 85,
     "assignmentGroup": "PROJECTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "July 16, 2024, 11:59 PM",
     "availableFrom": "July 09, 2024, 12:00 AM",
     "availableUntil": "July 23, 2024, 11:50 PM",
@@ -330,6 +546,14 @@
     "points": 70,
     "assignmentGroup": "QUIZZES",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "July 18, 2024, 11:59 PM",
     "availableFrom": "July 11, 2024, 12:00 AM",
     "availableUntil": "July 25, 2024, 11:50 PM",
@@ -342,6 +566,14 @@
     "points": 75,
     "assignmentGroup": "ASSIGNMENTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "July 20, 2024, 11:59 PM",
     "availableFrom": "July 13, 2024, 12:00 AM",
     "availableUntil": "July 27, 2024, 11:50 PM",
@@ -354,6 +586,14 @@
     "points": 100,
     "assignmentGroup": "PROJECTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "July 22, 2024, 11:59 PM",
     "availableFrom": "July 15, 2024, 12:00 AM",
     "availableUntil": "July 29, 2024, 11:50 PM",
@@ -366,6 +606,14 @@
     "points": 80,
     "assignmentGroup": "QUIZZES",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "July 24, 2024, 11:59 PM",
     "availableFrom": "July 17, 2024, 12:00 AM",
     "availableUntil": "July 31, 2024, 11:50 PM",
@@ -378,6 +626,14 @@
     "points": 85,
     "assignmentGroup": "ASSIGNMENTS",
     "gradeAs": "PERCENTAGE",
+    "submissionType": "Online",
+    "onlineEntryOptions": [
+      { "id": "wd-text-entry", "label": "Text Entry" },
+      { "id": "wd-website-url", "label": "Website URL" },
+      { "id": "wd-media-recordings", "label": "Media Recordings" },
+      { "id": "wd-student-annotation", "label": "Student Annotation" },
+      { "id": "wd-file-upload", "label": "File Uploads" }
+    ],
     "dueDate": "July 26, 2024, 11:59 PM",
     "availableFrom": "July 19, 2024, 12:00 AM",
     "availableUntil": "August 02, 2024, 11:50 PM",

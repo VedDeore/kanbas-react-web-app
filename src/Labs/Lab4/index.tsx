@@ -9,6 +9,7 @@ import ParentStateComponent from "./ParentStateComponent";
 import PassingDataOnEvent from "./PassingDataOnEvent";
 import PassingFunctions from "./PassingFunctions";
 import ReduxExamples from "./ReduxExamples";
+import TodoList from "./ReduxExamples/todos/TodoList";
 import StringStateVariables from "./StringStateVariables";
 
 export default function Lab4() {
@@ -16,7 +17,7 @@ export default function Lab4() {
     alert("Hello World!");
   }
   return (
-    <div className="p-3" id="wd-lab4">
+    <div id="wd-lab4">
       <h3>Lab 4</h3>
       <ClickEvent />
       <PassingDataOnEvent />
@@ -30,6 +31,7 @@ export default function Lab4() {
       <ArrayStateVariable />
       <ParentStateComponent />
       <ReduxExamples />
+      <TodoList />
     </div>
   );
 }

@@ -16,7 +16,7 @@ export default function ArrayStateVariable() {
       <ul className="list-group w-25">
         {array.map((item, index) => (
           <li
-            className="list-group-item d-flex justify-content-between align-items-center border-gray"
+            className="list-group-item d-flex justify-content-between align-items-center"
             key={index}
           >
             {item}

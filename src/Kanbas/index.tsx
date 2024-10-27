@@ -21,11 +21,8 @@ export default function Kanbas() {
     description: "New Description",
     img: "reactjs.jpg",
   });
-  const addNewCourse = () => {
-    setCourses([
-      ...courses,
-      { ...course, _id: new Date().getTime().toString() },
-    ]);
+  const addNewCourse = (uniqueId: String) => {
+    setCourses([...courses, { ...course, _id: uniqueId }]);
   };
   const deleteCourse = (courseId: any) => {
     setCourses(courses.filter((course) => course._id !== courseId));

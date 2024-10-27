@@ -10,7 +10,9 @@ export default function AccountNavigation() {
         <Link
           id="wd-course-piazza-link"
           to="/Kanbas/Account/Profile"
-          className="list-group-item text-danger border border-0"
+          className={`list-group-item ${
+            pathname.includes("Profile") ? "active" : "text-danger"
+          } border border-0`}
         >
           Profile
         </Link>
@@ -19,7 +21,9 @@ export default function AccountNavigation() {
           <Link
             id="wd-course-home-link"
             to="/Kanbas/Account/Signin"
-            className="list-group-item active border border-0"
+            className={`list-group-item ${
+              pathname.includes("Signin") ? "active" : "text-danger"
+            } border border-0`}
           >
             Signin
           </Link>
@@ -27,7 +31,9 @@ export default function AccountNavigation() {
           <Link
             id="wd-course-modules-link"
             to="/Kanbas/Account/Signup"
-            className="list-group-item text-danger border border-0"
+            className={`list-group-item ${
+              pathname.includes("Signup") ? "active" : "text-danger"
+            } border border-0`}
           >
             Signup
           </Link>

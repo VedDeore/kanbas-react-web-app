@@ -54,7 +54,7 @@ export default function Assignments() {
                           {assignment.title}
                         </a>
                       ) : (
-                        <span className="text-dark fw-bold">
+                        <span className="wd-assignment-link text-dark text-decoration-none fw-bold">
                           {assignment.title}
                         </span>
                       )}

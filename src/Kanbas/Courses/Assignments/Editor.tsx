@@ -1,14 +1,14 @@
 import "../../styles.css";
 import { MdCalendarMonth } from "react-icons/md";
-import { assignments } from "../../Database";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addAssignment, updateAssignment } from "./reducer";
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
+  const { assignments } = useSelector((state: any) => state.assignmentsReducer);
   const initialAssignment = aid
     ? assignments.find((assignment: any) => assignment._id === aid) || {
         title: "",
@@ -51,7 +51,7 @@ export default function AssignmentEditor() {
   const dispatch = useDispatch();
 
   const handleSave = () => {
-    if (aid != "new") {
+    if (aid !== "new") {
       dispatch(updateAssignment(assignment));
     } else {
       dispatch(addAssignment({ ...assignment, course: cid }));

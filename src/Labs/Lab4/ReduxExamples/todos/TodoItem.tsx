@@ -18,16 +18,14 @@ export default function TodoItem({
           onClick={() => dispatch(setTodo(todo))}
           id="wd-set-todo-click"
         >
-          {" "}
-          Edit{" "}
+          Edit
         </button>
         <button
           className="btn btn-danger"
           onClick={() => dispatch(deleteTodo(todo.id))}
           id="wd-delete-todo-click"
         >
-          {" "}
-          Delete{" "}
+          Delete
         </button>
       </span>
     </li>

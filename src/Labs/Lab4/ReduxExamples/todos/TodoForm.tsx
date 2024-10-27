@@ -9,7 +9,7 @@ export default function TodoForm() {
     <li className="list-group-item d-flex justify-content-between align-items-center">
       <span>
         <input
-          defaultValue={todo.title}
+          value={todo.title}
           onChange={(e) =>
             dispatch(setTodo({ ...todo, title: e.target.value }))
           }

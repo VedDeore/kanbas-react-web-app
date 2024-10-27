@@ -14,6 +14,7 @@ export default function Modules() {
   const [moduleName, setModuleName] = useState("");
   const { modules } = useSelector((state: any) => state.modulesReducer);
   const dispatch = useDispatch();
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
   return (
     <div className="me-3">
       <ModulesControls
@@ -54,13 +55,15 @@ export default function Modules() {
                     />
                   )}
                 </div>
-                <ModuleControlButtons
-                  moduleId={module._id}
-                  deleteModule={(moduleId) => {
-                    dispatch(deleteModule(moduleId));
-                  }}
-                  editModule={(moduleId) => dispatch(editModule(moduleId))}
-                />
+                {currentUser.role === "FACULTY" && (
+                  <ModuleControlButtons
+                    moduleId={module._id}
+                    deleteModule={(moduleId) => {
+                      dispatch(deleteModule(moduleId));
+                    }}
+                    editModule={(moduleId) => dispatch(editModule(moduleId))}
+                  />
+                )}
               </div>
               {module.lessons && (
                 <ul className="wd-lessons list-group rounded-0">
@@ -78,9 +81,11 @@ export default function Modules() {
                         >
                           {lesson.name}
                         </span>
-                        <span className="ms-auto">
-                          <LessonControlButtons />
-                        </span>
+                        {currentUser.role === "FACULTY" && (
+                          <span className="ms-auto">
+                            <LessonControlButtons />
+                          </span>
+                        )}
                       </div>
                     </li>
                   ))}

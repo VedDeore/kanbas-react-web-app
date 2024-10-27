@@ -4,11 +4,25 @@ import AssignmentControlButtons from "./AssignmentControlButtons";
 import { RiArrowDownSFill } from "react-icons/ri";
 import { MdOutlineAssignment } from "react-icons/md";
 import LessonControlButtons from "../Modules/LessonControlButtons";
-import { assignments } from "../../Database";
 import { useParams } from "react-router";
+import { useSelector } from "react-redux";
+import { deleteAssignment } from "./reducer";
+import { useDispatch } from "react-redux";
+import { FaTrash } from "react-icons/fa";
 
 export default function Assignments() {
   const { cid } = useParams();
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const { assignments } = useSelector((state: any) => state.assignmentsReducer);
+  const dispatch = useDispatch();
+  const handleDelete = (assignmentId: any) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to remove this assignment?"
+    );
+    if (confirmDelete) {
+      dispatch(deleteAssignment(assignmentId));
+    }
+  };
   return (
     <div className="me-3">
       <AssignmentSearch />
@@ -21,7 +35,7 @@ export default function Assignments() {
               <RiArrowDownSFill className="me-2" />
               <b>ASSIGNMENTS</b>{" "}
             </div>
-            <AssignmentControlButtons />
+            {currentUser.role === "FACULTY" && <AssignmentControlButtons />}
           </div>
           <ul className="wd-assignment-list list-group rounded-0">
             {assignments
@@ -32,20 +46,32 @@ export default function Assignments() {
                     <BsGripVertical className="me-2 fs-3" />
                     <MdOutlineAssignment className="me-3 text-success" />
                     <span>
-                      <a
-                        className="wd-assignment-link text-dark text-decoration-none fw-bold"
-                        href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}
-                      >
-                        {assignment.title}
-                      </a>
+                      {currentUser.role === "FACULTY" ? (
+                        <a
+                          className="wd-assignment-link text-dark text-decoration-none fw-bold"
+                          href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}
+                        >
+                          {assignment.title}
+                        </a>
+                      ) : (
+                        <span className="text-dark fw-bold">
+                          {assignment.title}
+                        </span>
+                      )}
                       <br />
                       <span className="text-danger">Multiple Modules</span> |
                       <b> Not available until</b> {assignment.availableFrom} |{" "}
                       <b>Due</b> {assignment.dueDate} | {assignment.points} pts
                     </span>
-                    <span className="ms-auto">
-                      <LessonControlButtons />
-                    </span>
+                    {currentUser.role === "FACULTY" && (
+                      <span className="ms-auto">
+                        <FaTrash
+                          className="text-danger me-2 mb-1"
+                          onClick={() => handleDelete(assignment._id)}
+                        />
+                        <LessonControlButtons />
+                      </span>
+                    )}
                   </div>
                 </li>
               ))}

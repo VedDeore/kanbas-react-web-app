@@ -14,9 +14,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "May 13, 2024, 11:59 PM",
-    "availableFrom": "May 06, 2024, 12:00 AM",
-    "availableUntil": "May 20, 2024, 11:50 PM",
+    "dueDate": "2024-05-13T23:59",
+    "availableFrom": "2024-05-06T00:00",
+    "availableUntil": "2024-05-20T23:50",
     "course": "CS101"
   },
   {
@@ -34,9 +34,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "May 15, 2024, 11:59 PM",
-    "availableFrom": "May 08, 2024, 12:00 AM",
-    "availableUntil": "May 22, 2024, 11:50 PM",
+    "dueDate": "2024-05-15T23:59",
+    "availableFrom": "2024-05-08T00:00",
+    "availableUntil": "2024-05-22T23:50",
     "course": "CS101"
   },
   {
@@ -54,9 +54,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "May 17, 2024, 11:59 PM",
-    "availableFrom": "May 10, 2024, 12:00 AM",
-    "availableUntil": "May 24, 2024, 11:50 PM",
+    "dueDate": "2024-05-17T23:59",
+    "availableFrom": "2024-05-10T00:00",
+    "availableUntil": "2024-05-24T23:50",
     "course": "CS101"
   },
   {
@@ -74,9 +74,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "May 19, 2024, 11:59 PM",
-    "availableFrom": "May 12, 2024, 12:00 AM",
-    "availableUntil": "May 26, 2024, 11:50 PM",
+    "dueDate": "2024-05-19T23:59",
+    "availableFrom": "2024-05-12T00:00",
+    "availableUntil": "2024-05-26T23:50",
     "course": "CS101"
   },
   {
@@ -94,9 +94,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "May 21, 2024, 11:59 PM",
-    "availableFrom": "May 14, 2024, 12:00 AM",
-    "availableUntil": "May 28, 2024, 11:50 PM",
+    "dueDate": "2024-05-21T23:59",
+    "availableFrom": "2024-05-14T00:00",
+    "availableUntil": "2024-05-28T23:50",
     "course": "CS102"
   },
   {
@@ -114,9 +114,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "May 23, 2024, 11:59 PM",
-    "availableFrom": "May 16, 2024, 12:00 AM",
-    "availableUntil": "May 30, 2024, 11:50 PM",
+    "dueDate": "2024-05-23T23:59",
+    "availableFrom": "2024-05-16T00:00",
+    "availableUntil": "2024-05-30T23:50",
     "course": "CS102"
   },
   {
@@ -134,9 +134,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "May 25, 2024, 11:59 PM",
-    "availableFrom": "May 18, 2024, 12:00 AM",
-    "availableUntil": "June 01, 2024, 11:50 PM",
+    "dueDate": "2024-05-25T23:59",
+    "availableFrom": "2024-05-18T00:00",
+    "availableUntil": "2024-06-01T23:50",
     "course": "CS102"
   },
   {
@@ -154,9 +154,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "May 27, 2024, 11:59 PM",
-    "availableFrom": "May 20, 2024, 12:00 AM",
-    "availableUntil": "June 03, 2024, 11:50 PM",
+    "dueDate": "2024-05-27T23:59",
+    "availableFrom": "2024-05-20T00:00",
+    "availableUntil": "2024-06-03T23:50",
     "course": "CS102"
   },
   {
@@ -174,9 +174,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "May 29, 2024, 11:59 PM",
-    "availableFrom": "May 22, 2024, 12:00 AM",
-    "availableUntil": "June 05, 2024, 11:50 PM",
+    "dueDate": "2024-05-29T23:59",
+    "availableFrom": "2024-05-22T00:00",
+    "availableUntil": "2024-06-05T23:50",
     "course": "CS103"
   },
   {
@@ -194,9 +194,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "May 31, 2024, 11:59 PM",
-    "availableFrom": "May 24, 2024, 12:00 AM",
-    "availableUntil": "June 07, 2024, 11:50 PM",
+    "dueDate": "2024-05-31T23:59",
+    "availableFrom": "2024-05-24T00:00",
+    "availableUntil": "2024-06-07T23:50",
     "course": "CS103"
   },
   {
@@ -214,9 +214,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "June 02, 2024, 11:59 PM",
-    "availableFrom": "May 25, 2024, 12:00 AM",
-    "availableUntil": "June 09, 2024, 11:50 PM",
+    "dueDate": "2024-06-02T23:59",
+    "availableFrom": "2024-05-25T00:00",
+    "availableUntil": "2024-06-09T23:50",
     "course": "CS103"
   },
   {
@@ -234,9 +234,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "June 05, 2024, 11:59 PM",
-    "availableFrom": "May 29, 2024, 12:00 AM",
-    "availableUntil": "June 12, 2024, 11:50 PM",
+    "dueDate": "2024-06-05T23:59",
+    "availableFrom": "2024-05-29T00:00",
+    "availableUntil": "2024-06-12T23:50",
     "course": "CS104"
   },
   {
@@ -254,9 +254,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "June 07, 2024, 11:59 PM",
-    "availableFrom": "May 31, 2024, 12:00 AM",
-    "availableUntil": "June 14, 2024, 11:50 PM",
+    "dueDate": "2024-06-07T23:59",
+    "availableFrom": "2024-05-31T00:00",
+    "availableUntil": "2024-06-14T23:50",
     "course": "CS104"
   },
   {
@@ -274,9 +274,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "June 09, 2024, 11:59 PM",
-    "availableFrom": "June 01, 2024, 12:00 AM",
-    "availableUntil": "June 16, 2024, 11:50 PM",
+    "dueDate": "2024-06-09T23:59",
+    "availableFrom": "2024-06-01T00:00",
+    "availableUntil": "2024-06-16T23:50",
     "course": "CS104"
   },
   {
@@ -294,9 +294,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "June 12, 2024, 11:59 PM",
-    "availableFrom": "June 05, 2024, 12:00 AM",
-    "availableUntil": "June 19, 2024, 11:50 PM",
+    "dueDate": "2024-06-12T23:59",
+    "availableFrom": "2024-06-05T00:00",
+    "availableUntil": "2024-06-19T23:50",
     "course": "CS105"
   },
   {
@@ -314,9 +314,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "June 14, 2024, 11:59 PM",
-    "availableFrom": "June 07, 2024, 12:00 AM",
-    "availableUntil": "June 21, 2024, 11:50 PM",
+    "dueDate": "2024-06-14T23:59",
+    "availableFrom": "2024-06-07T00:00",
+    "availableUntil": "2024-06-21T23:50",
     "course": "CS105"
   },
   {
@@ -334,9 +334,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "June 16, 2024, 11:59 PM",
-    "availableFrom": "June 09, 2024, 12:00 AM",
-    "availableUntil": "June 23, 2024, 11:50 PM",
+    "dueDate": "2024-06-16T23:59",
+    "availableFrom": "2024-06-09T00:00",
+    "availableUntil": "2024-06-23T23:50",
     "course": "CS105"
   },
   {
@@ -354,9 +354,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "June 18, 2024, 11:59 PM",
-    "availableFrom": "June 11, 2024, 12:00 AM",
-    "availableUntil": "June 25, 2024, 11:50 PM",
+    "dueDate": "2024-06-18T23:59",
+    "availableFrom": "2024-06-11T00:00",
+    "availableUntil": "2024-06-25T23:50",
     "course": "CS106"
   },
   {
@@ -374,9 +374,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "June 20, 2024, 11:59 PM",
-    "availableFrom": "June 13, 2024, 12:00 AM",
-    "availableUntil": "June 27, 2024, 11:50 PM",
+    "dueDate": "2024-06-20T23:59",
+    "availableFrom": "2024-06-13T00:00",
+    "availableUntil": "2024-06-27T23:50",
     "course": "CS106"
   },
   {
@@ -394,9 +394,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "June 22, 2024, 11:59 PM",
-    "availableFrom": "June 15, 2024, 12:00 AM",
-    "availableUntil": "June 29, 2024, 11:50 PM",
+    "dueDate": "2024-06-22T23:59",
+    "availableFrom": "2024-06-15T00:00",
+    "availableUntil": "2024-06-29T23:50",
     "course": "CS106"
   },
   {
@@ -414,9 +414,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "June 24, 2024, 11:59 PM",
-    "availableFrom": "June 17, 2024, 12:00 AM",
-    "availableUntil": "July 01, 2024, 11:50 PM",
+    "dueDate": "2024-06-24T23:59",
+    "availableFrom": "2024-06-17T00:00",
+    "availableUntil": "2024-07-01T23:50",
     "course": "CS107"
   },
   {
@@ -434,9 +434,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "June 26, 2024, 11:59 PM",
-    "availableFrom": "June 19, 2024, 12:00 AM",
-    "availableUntil": "July 03, 2024, 11:50 PM",
+    "dueDate": "2024-06-26T23:59",
+    "availableFrom": "2024-06-19T00:00",
+    "availableUntil": "2024-07-03T23:50",
     "course": "CS107"
   },
   {
@@ -454,9 +454,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "June 28, 2024, 11:59 PM",
-    "availableFrom": "June 21, 2024, 12:00 AM",
-    "availableUntil": "July 05, 2024, 11:50 PM",
+    "dueDate": "2024-06-28T23:59",
+    "availableFrom": "2024-06-21T00:00",
+    "availableUntil": "2024-07-05T23:50",
     "course": "CS107"
   },
   {
@@ -474,9 +474,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "July 10, 2024, 11:59 PM",
-    "availableFrom": "July 03, 2024, 12:00 AM",
-    "availableUntil": "July 17, 2024, 11:50 PM",
+    "dueDate": "2024-07-10T23:59",
+    "availableFrom": "2024-07-03T00:00",
+    "availableUntil": "2024-07-17T23:50",
     "course": "CS108"
   },
   {
@@ -494,9 +494,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "July 12, 2024, 11:59 PM",
-    "availableFrom": "July 05, 2024, 12:00 AM",
-    "availableUntil": "July 19, 2024, 11:50 PM",
+    "dueDate": "2024-07-12T23:59",
+    "availableFrom": "2024-07-05T00:00",
+    "availableUntil": "2024-07-19T23:50",
     "course": "CS108"
   },
   {
@@ -514,9 +514,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "July 14, 2024, 11:59 PM",
-    "availableFrom": "July 07, 2024, 12:00 AM",
-    "availableUntil": "July 21, 2024, 11:50 PM",
+    "dueDate": "2024-07-14T23:59",
+    "availableFrom": "2024-07-07T00:00",
+    "availableUntil": "2024-07-21T23:50",
     "course": "CS108"
   },
   {
@@ -534,9 +534,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "July 16, 2024, 11:59 PM",
-    "availableFrom": "July 09, 2024, 12:00 AM",
-    "availableUntil": "July 23, 2024, 11:50 PM",
+    "dueDate": "2024-07-16T23:59",
+    "availableFrom": "2024-07-09T00:00",
+    "availableUntil": "2024-07-23T23:50",
     "course": "CS109"
   },
   {
@@ -554,9 +554,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "July 18, 2024, 11:59 PM",
-    "availableFrom": "July 11, 2024, 12:00 AM",
-    "availableUntil": "July 25, 2024, 11:50 PM",
+    "dueDate": "2024-07-18T23:59",
+    "availableFrom": "2024-07-11T00:00",
+    "availableUntil": "2024-07-25T23:50",
     "course": "CS109"
   },
   {
@@ -574,9 +574,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "July 20, 2024, 11:59 PM",
-    "availableFrom": "July 13, 2024, 12:00 AM",
-    "availableUntil": "July 27, 2024, 11:50 PM",
+    "dueDate": "2024-07-20T23:59",
+    "availableFrom": "2024-07-13T00:00",
+    "availableUntil": "2024-07-27T23:50",
     "course": "CS109"
   },
   {
@@ -594,9 +594,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "July 22, 2024, 11:59 PM",
-    "availableFrom": "July 15, 2024, 12:00 AM",
-    "availableUntil": "July 29, 2024, 11:50 PM",
+    "dueDate": "2024-07-22T23:59",
+    "availableFrom": "2024-07-15T00:00",
+    "availableUntil": "2024-07-29T23:50",
     "course": "CS110"
   },
   {
@@ -614,9 +614,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "July 24, 2024, 11:59 PM",
-    "availableFrom": "July 17, 2024, 12:00 AM",
-    "availableUntil": "July 31, 2024, 11:50 PM",
+    "dueDate": "2024-07-24T23:59",
+    "availableFrom": "2024-07-17T00:00",
+    "availableUntil": "2024-07-31T23:50",
     "course": "CS110"
   },
   {
@@ -634,9 +634,9 @@
       { "id": "wd-student-annotation", "label": "Student Annotation" },
       { "id": "wd-file-upload", "label": "File Uploads" }
     ],
-    "dueDate": "July 26, 2024, 11:59 PM",
-    "availableFrom": "July 19, 2024, 12:00 AM",
-    "availableUntil": "August 02, 2024, 11:50 PM",
+    "dueDate": "2024-07-26T23:59",
+    "availableFrom": "2024-07-19T00:00",
+    "availableUntil": "2024-08-02T23:50",
     "course": "CS110"
   }
 ]

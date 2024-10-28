@@ -34,7 +34,7 @@ export default function AssignmentSearch() {
             />
             Group
           </button>
-          <Link to={`/Kanbas/Courses/${cid}/Assignments/new`}>
+          <Link to={`/Kanbas/Courses/${cid}/Assignments/NewAssignment`}>
             <button
               id="wd-add-assignment-group"
               className="btn btn-danger me-1"

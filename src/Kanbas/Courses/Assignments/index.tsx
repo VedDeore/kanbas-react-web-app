@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { deleteAssignment } from "./reducer";
 import { useDispatch } from "react-redux";
 import { FaTrash } from "react-icons/fa";
+import ProtectedRoute from "../../Account/ProtectedRoute";
 
 export default function Assignments() {
   const { cid } = useParams();
@@ -22,6 +23,19 @@ export default function Assignments() {
     if (confirmDelete) {
       dispatch(deleteAssignment(assignmentId));
     }
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "long",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    };
+    return date.toLocaleString("en-US", options);
   };
   return (
     <div className="me-3">
@@ -60,11 +74,12 @@ export default function Assignments() {
                       )}
                       <br />
                       <span className="text-danger">Multiple Modules</span> |
-                      <b> Not available until</b> {assignment.availableFrom} |{" "}
-                      <b>Due</b> {assignment.dueDate} | {assignment.points} pts
+                      <b> Not available until</b>{" "}
+                      {formatDate(assignment.availableFrom)} | <b>Due</b>{" "}
+                      {formatDate(assignment.dueDate)} | {assignment.points} pts
                     </span>
                     {currentUser.role === "FACULTY" && (
-                      <span className="ms-auto">
+                      <span className="d-flex ms-auto">
                         <FaTrash
                           className="text-danger me-2 mb-1"
                           onClick={() => handleDelete(assignment._id)}

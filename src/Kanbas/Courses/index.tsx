@@ -6,17 +6,22 @@ import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
 import { FaAlignJustify } from "react-icons/fa";
 import PeopleTable from "./People/Table";
+import ProtectedRoute from "../Account/ProtectedRoute";
+import { useSelector } from "react-redux";
 
 export default function Courses({ courses }: { courses: any[] }) {
   const { cid } = useParams();
   const { pathname } = useLocation();
   const course = courses.find((course) => course._id === cid);
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
   return (
     <div id="wd-courses">
       <h2 className="text-danger">
         <FaAlignJustify className="me-4 fs-4 mb-1" />
         {course && course.name} &gt; {pathname.split("/")[4]}{" "}
-        {pathname.split("/")[5] && <>&gt; {pathname.split("/")[5]}</>}
+        {pathname.split("/")[5] && currentUser.role === "FACULTY" && (
+          <>&gt; {pathname.split("/")[5]}</>
+        )}
       </h2>
       <hr />
       <div className="d-flex">
@@ -31,7 +36,16 @@ export default function Courses({ courses }: { courses: any[] }) {
             <Route path="Piazza" element={<h2>Piazza</h2>} />
             <Route path="Zoom" element={<h2>Zoom</h2>} />
             <Route path="Assignments" element={<Assignments />} />
-            <Route path="Assignments/:aid" element={<AssignmentEditor />} />
+            <Route
+              path="Assignments/:aid"
+              element={
+                currentUser.role === "FACULTY" ? (
+                  <AssignmentEditor />
+                ) : (
+                  <Navigate to={`/Kanbas/Courses/${cid}/Assignments`} />
+                )
+              }
+            />
             <Route path="Quizzes" element={<h2>Quizzes</h2>} />
             <Route path="Grades" element={<h2>Grades</h2>} />
             <Route path="People" element={<PeopleTable />} />

@@ -85,11 +85,13 @@ export default function Dashboard({
       )}
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h2 id="wd-dashboard-published">
-          Published Courses ({enrolledCourses.length})
+          {showAllCourses
+            ? "Published Courses (" + courses.length + ")"
+            : "Enrolled Courses (" + enrolledCourses.length + ")"}
         </h2>
         {currentUser.role === "STUDENT" && (
           <button className="btn btn-primary" onClick={setCourseList}>
-            Enrollments
+            {showAllCourses ? "Show Enrolled Courses" : "Show All Course"}
           </button>
         )}
       </div>

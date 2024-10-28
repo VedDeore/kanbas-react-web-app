@@ -1,6 +1,5 @@
 import "../../styles.css";
-import { MdCalendarMonth } from "react-icons/md";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,73 +7,59 @@ import { addAssignment, updateAssignment } from "./reducer";
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
+  const navigate = useNavigate();
   const { assignments } = useSelector((state: any) => state.assignmentsReducer);
-  const initialAssignment = aid
-    ? assignments.find((assignment: any) => assignment._id === aid) || {
-        title: "",
-        description: "",
-        points: 0,
-        assignmentGroup: "ASSIGNMENTS",
-        gradeAs: "PERCENTAGE",
-        submissionType: "ONLINE",
-        onlineEntryOptions: [
-          { id: "wd-text-entry", label: "Text Entry" },
-          { id: "wd-website-url", label: "Website URL" },
-          { id: "wd-media-recordings", label: "Media Recordings" },
-          { id: "wd-student-annotation", label: "Student Annotation" },
-          { id: "wd-file-upload", label: "File Uploads" },
-        ],
-        dueDate: "",
-        availableFrom: "",
-        availableUntil: "",
-      }
-    : {
-        title: "",
-        description: "",
-        points: 0,
-        assignmentGroup: "ASSIGNMENTS",
-        gradeAs: "PERCENTAGE",
-        submissionType: "ONLINE",
-        onlineEntryOptions: [
-          { id: "wd-text-entry", label: "Text Entry" },
-          { id: "wd-website-url", label: "Website URL" },
-          { id: "wd-media-recordings", label: "Media Recordings" },
-          { id: "wd-student-annotation", label: "Student Annotation" },
-          { id: "wd-file-upload", label: "File Uploads" },
-        ],
-        dueDate: "",
-        availableFrom: "",
-        availableUntil: "",
-      };
+  const initialAssignment =
+    aid !== "NewAssignment"
+      ? assignments.find((assignment: any) => assignment._id === aid)
+      : {
+          title: "",
+          description: "",
+          points: "",
+          assignmentGroup: "ASSIGNMENTS",
+          gradeAs: "PERCENTAGE",
+          submissionType: "ONLINE",
+          onlineEntryOptions: [
+            { id: "wd-text-entry", label: "Text Entry" },
+            { id: "wd-website-url", label: "Website URL" },
+            { id: "wd-media-recordings", label: "Media Recordings" },
+            { id: "wd-student-annotation", label: "Student Annotation" },
+            { id: "wd-file-upload", label: "File Uploads" },
+          ],
+          dueDate: "",
+          availableFrom: "",
+          availableUntil: "",
+        };
 
   const [assignment, setAssignment] = useState(initialAssignment);
   const dispatch = useDispatch();
 
   const handleSave = () => {
-    if (aid !== "new") {
+    if (aid !== "NewAssignment") {
       dispatch(updateAssignment(assignment));
     } else {
       dispatch(addAssignment({ ...assignment, course: cid }));
     }
+    navigate(`/Kanbas/Courses/${cid}/Assignments`);
   };
 
   return (
     <div id="wd-assignments-editor" className="me-3">
-      <b>
+      <form onSubmit={handleSave}>
         <label htmlFor="wd-name" className="mb-3">
-          Assignment Name
+          <b>Assignment Name</b>
         </label>
-      </b>
-      <form>
         <div className="row mb-3">
           <div className="col-sm-12">
             <input
               className="form-control"
               id="wd-name"
+              placeholder="Fill this field"
               value={assignment.title}
               onChange={(e) =>
                 setAssignment({ ...assignment, title: e.target.value })
               }
+              required
             />
           </div>
         </div>
@@ -83,12 +68,14 @@ export default function AssignmentEditor() {
           <div className="col-sm-12">
             <textarea
               value={assignment.description}
+              placeholder="Fill this field"
               onChange={(e) =>
                 setAssignment({ ...assignment, description: e.target.value })
               }
               className="form-control"
               id="wd-description"
               rows={10}
+              required
             ></textarea>
           </div>
         </div>
@@ -99,12 +86,16 @@ export default function AssignmentEditor() {
           </label>
           <div className="col-sm-10">
             <input
+              type="number"
               className="form-control"
               id="wd-points"
               value={assignment.points}
+              placeholder="Input points greater than 1"
               onChange={(e) =>
                 setAssignment({ ...assignment, points: Number(e.target.value) })
               }
+              min="1"
+              required
             />
           </div>
         </div>
@@ -191,17 +182,15 @@ export default function AssignmentEditor() {
                 </label>
                 <div className="input-group mb-3">
                   <input
+                    type="datetime-local"
                     id="wd-due-date"
-                    type="text"
                     className="form-control"
                     value={`${assignment.dueDate}`}
                     onChange={(e) =>
                       setAssignment({ ...assignment, dueDate: e.target.value })
                     }
+                    required
                   />
-                  <span className="input-group-text">
-                    <MdCalendarMonth />
-                  </span>
                 </div>
 
                 <div className="row mb-3 d-flex">
@@ -212,7 +201,7 @@ export default function AssignmentEditor() {
                     <div className="input-group mb-3">
                       <input
                         id="wd-available-from"
-                        type="text"
+                        type="datetime-local"
                         className="form-control"
                         value={`${assignment.availableFrom}`}
                         onChange={(e) =>
@@ -221,10 +210,8 @@ export default function AssignmentEditor() {
                             availableFrom: e.target.value,
                           })
                         }
+                        required
                       />
-                      <span className="input-group-text">
-                        <MdCalendarMonth />
-                      </span>
                     </div>
                   </div>
 
@@ -235,7 +222,7 @@ export default function AssignmentEditor() {
                     <div className="input-group mb-3">
                       <input
                         id="wd-available-until"
-                        type="text"
+                        type="datetime-local"
                         className="form-control"
                         value={`${assignment.availableUntil}`}
                         onChange={(e) =>
@@ -244,10 +231,8 @@ export default function AssignmentEditor() {
                             availableUntil: e.target.value,
                           })
                         }
+                        required
                       />
-                      <span className="input-group-text">
-                        <MdCalendarMonth />
-                      </span>
                     </div>
                   </div>
                 </div>
@@ -264,17 +249,18 @@ export default function AssignmentEditor() {
               <button
                 id="wd-edit-assignment-cancel"
                 className="btn btn-secondary btn-outline-secondary me-1"
+                type="button"
               >
                 Cancel
               </button>
-              <button
-                id="wd-edit-assignment-save"
-                className="btn btn-danger me-1"
-                onClick={handleSave}
-              >
-                Save
-              </button>
             </Link>
+            <button
+              id="wd-edit-assignment-save"
+              className="btn btn-danger me-1"
+              type="submit"
+            >
+              Save
+            </button>
           </div>
         </div>
       </form>

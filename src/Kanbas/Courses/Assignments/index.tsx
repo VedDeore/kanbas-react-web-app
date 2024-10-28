@@ -1,4 +1,4 @@
-import { BsGripVertical, BsPlusLg } from "react-icons/bs";
+import { BsGripVertical } from "react-icons/bs";
 import AssignmentSearch from "./AssignmentSearch";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 import { RiArrowDownSFill } from "react-icons/ri";
@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { deleteAssignment } from "./reducer";
 import { useDispatch } from "react-redux";
 import { FaTrash } from "react-icons/fa";
-import ProtectedRoute from "../../Account/ProtectedRoute";
+import DeleteDialog from "./DeleteDialog";
 
 export default function Assignments() {
   const { cid } = useParams();
@@ -17,12 +17,7 @@ export default function Assignments() {
   const { assignments } = useSelector((state: any) => state.assignmentsReducer);
   const dispatch = useDispatch();
   const handleDelete = (assignmentId: any) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to remove this assignment?"
-    );
-    if (confirmDelete) {
-      dispatch(deleteAssignment(assignmentId));
-    }
+    dispatch(deleteAssignment(assignmentId));
   };
 
   const formatDate = (dateString: string) => {
@@ -81,8 +76,12 @@ export default function Assignments() {
                     {currentUser.role === "FACULTY" && (
                       <span className="d-flex ms-auto">
                         <FaTrash
+                          data-bs-toggle="modal"
+                          data-bs-target="#wd-delete-assignment-dialog"
                           className="text-danger me-2 mb-1"
-                          onClick={() => handleDelete(assignment._id)}
+                        />
+                        <DeleteDialog
+                          handleDelete={() => handleDelete(assignment._id)}
                         />
                         <LessonControlButtons />
                       </span>

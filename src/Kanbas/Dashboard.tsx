@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { enrollCourse, unenrollCourse } from "./Courses/reducer";
+import {
+  enrollCourse,
+  unenrollAllFromCourse,
+  unenrollCourse,
+} from "./Courses/reducer";
 import ProtectedRoute from "./Account/ProtectedRoute";
 
 export default function Dashboard({
@@ -70,11 +74,13 @@ export default function Dashboard({
           <br />
           <input
             value={course.name}
+            placeholder="Course Name"
             className="form-control mb-2"
             onChange={(e) => setCourse({ ...course, name: e.target.value })}
           />
           <textarea
             value={course.description}
+            placeholder="Course Description"
             className="form-control"
             onChange={(e) =>
               setCourse({ ...course, description: e.target.value })
@@ -163,6 +169,7 @@ export default function Dashboard({
                                   onClick={(event) => {
                                     event.preventDefault();
                                     deleteCourse(course._id);
+                                    dispatch(unenrollAllFromCourse(course._id));
                                   }}
                                   className="btn btn-danger float-end"
                                   id="wd-delete-course-click"

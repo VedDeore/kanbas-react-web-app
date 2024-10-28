@@ -54,7 +54,7 @@ export default function AssignmentEditor() {
             <input
               className="form-control"
               id="wd-name"
-              placeholder="Fill this field"
+              placeholder="Assignment Title"
               value={assignment.title}
               onChange={(e) =>
                 setAssignment({ ...assignment, title: e.target.value })
@@ -68,7 +68,7 @@ export default function AssignmentEditor() {
           <div className="col-sm-12">
             <textarea
               value={assignment.description}
-              placeholder="Fill this field"
+              placeholder="Assignment Description"
               onChange={(e) =>
                 setAssignment({ ...assignment, description: e.target.value })
               }
@@ -90,7 +90,7 @@ export default function AssignmentEditor() {
               className="form-control"
               id="wd-points"
               value={assignment.points}
-              placeholder="Input points greater than 1"
+              placeholder="Points"
               onChange={(e) =>
                 setAssignment({ ...assignment, points: Number(e.target.value) })
               }

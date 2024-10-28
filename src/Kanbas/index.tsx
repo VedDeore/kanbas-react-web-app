@@ -11,6 +11,15 @@ import { useState } from "react";
 import ProtectedRoute from "./Account/ProtectedRoute";
 
 export default function Kanbas() {
+  const initialCourseState = {
+    _id: "1234",
+    name: "",
+    number: "New Number",
+    startDate: "2023-09-10",
+    endDate: "2023-12-15",
+    description: "",
+    img: "reactjs.jpg",
+  };
   const [courses, setCourses] = useState<any[]>(db.courses);
   const [course, setCourse] = useState<any>({
     _id: "1234",
@@ -23,6 +32,7 @@ export default function Kanbas() {
   });
   const addNewCourse = (uniqueId: String) => {
     setCourses([...courses, { ...course, _id: uniqueId }]);
+    setCourse(initialCourseState);
   };
   const deleteCourse = (courseId: any) => {
     setCourses(courses.filter((course) => course._id !== courseId));
@@ -37,6 +47,7 @@ export default function Kanbas() {
         }
       })
     );
+    setCourse(initialCourseState);
   };
 
   return (

@@ -17,19 +17,15 @@ export default function ModuleControlButtons({
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   return (
     <div className="float-end">
-      {currentUser.role === "FACULTY" && (
-        <span>
-          <FaPencil
-            onClick={() => editModule(moduleId)}
-            className="text-primary me-3"
-          />
+      <FaPencil
+        onClick={() => editModule(moduleId)}
+        className="text-primary me-3"
+      />
 
-          <FaTrash
-            className="text-danger me-2 mb-1"
-            onClick={() => deleteModule(moduleId)}
-          />
-        </span>
-      )}
+      <FaTrash
+        className="text-danger me-2 mb-1"
+        onClick={() => deleteModule(moduleId)}
+      />
       <GreenCheckmark />
       <BsPlusLg />
       <IoEllipsisVertical className="fs-4" />

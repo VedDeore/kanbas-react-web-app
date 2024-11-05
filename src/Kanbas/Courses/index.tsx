@@ -36,16 +36,7 @@ export default function Courses({ courses }: { courses: any[] }) {
             <Route path="Piazza" element={<h2>Piazza</h2>} />
             <Route path="Zoom" element={<h2>Zoom</h2>} />
             <Route path="Assignments" element={<Assignments />} />
-            <Route
-              path="Assignments/:aid"
-              element={
-                currentUser.role === "FACULTY" ? (
-                  <AssignmentEditor />
-                ) : (
-                  <Navigate to={`/Kanbas/Courses/${cid}/Assignments`} />
-                )
-              }
-            />
+            <Route path="Assignments/:aid" element={<AssignmentEditor />} />
             <Route path="Quizzes" element={<h2>Quizzes</h2>} />
             <Route path="Grades" element={<h2>Grades</h2>} />
             <Route path="People" element={<PeopleTable />} />

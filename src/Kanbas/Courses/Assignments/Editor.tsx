@@ -8,6 +8,7 @@ import { addAssignment, updateAssignment } from "./reducer";
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
   const navigate = useNavigate();
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { assignments } = useSelector((state: any) => state.assignmentsReducer);
   const initialAssignment =
     aid !== "NewAssignment"
@@ -60,6 +61,7 @@ export default function AssignmentEditor() {
                 setAssignment({ ...assignment, title: e.target.value })
               }
               required
+              readOnly={currentUser.role !== "FACULTY"}
             />
           </div>
         </div>
@@ -76,6 +78,7 @@ export default function AssignmentEditor() {
               id="wd-description"
               rows={10}
               required
+              readOnly={currentUser.role !== "FACULTY"}
             ></textarea>
           </div>
         </div>
@@ -96,6 +99,7 @@ export default function AssignmentEditor() {
               }
               min="1"
               required
+              readOnly={currentUser.role !== "FACULTY"}
             />
           </div>
         </div>
@@ -105,7 +109,11 @@ export default function AssignmentEditor() {
             <span className="float-end">Assignment Group</span>
           </label>
           <div className="col-sm-10">
-            <select id="wd-group" className="form-select">
+            <select
+              id="wd-group"
+              className="form-select"
+              disabled={currentUser.role !== "FACULTY"}
+            >
               <option value="ASSIGNMENTS">{assignment.assignmentGroup}</option>
             </select>
           </div>
@@ -119,7 +127,11 @@ export default function AssignmentEditor() {
             <span className="float-end">Display Grade as</span>
           </label>
           <div className="col-sm-10">
-            <select id="wd-display-grade-as" className="form-select">
+            <select
+              id="wd-display-grade-as"
+              className="form-select"
+              disabled={currentUser.role !== "FACULTY"}
+            >
               <option value="PERCENTAGE">{assignment.gradeAs}</option>
             </select>
           </div>
@@ -136,7 +148,11 @@ export default function AssignmentEditor() {
             <div className="border border-gray rounded">
               <div className="ms-3 me-3">
                 <div className="pt-3 pb-3">
-                  <select id="wd-submission-type" className="form-select">
+                  <select
+                    id="wd-submission-type"
+                    className="form-select"
+                    disabled={currentUser.role !== "FACULTY"}
+                  >
                     <option value="Online">{assignment.submissionType}</option>
                   </select>
                 </div>
@@ -149,6 +165,7 @@ export default function AssignmentEditor() {
                           className="form-check-input"
                           type="checkbox"
                           id={option.id}
+                          disabled={currentUser.role !== "FACULTY"}
                         />
                         <label className="form-check-label" htmlFor={option.id}>
                           {option.label}
@@ -190,6 +207,7 @@ export default function AssignmentEditor() {
                       setAssignment({ ...assignment, dueDate: e.target.value })
                     }
                     required
+                    readOnly={currentUser.role !== "FACULTY"}
                   />
                 </div>
 
@@ -211,6 +229,7 @@ export default function AssignmentEditor() {
                           })
                         }
                         required
+                        readOnly={currentUser.role !== "FACULTY"}
                       />
                     </div>
                   </div>
@@ -232,6 +251,7 @@ export default function AssignmentEditor() {
                           })
                         }
                         required
+                        readOnly={currentUser.role !== "FACULTY"}
                       />
                     </div>
                   </div>
@@ -240,29 +260,29 @@ export default function AssignmentEditor() {
             </div>
           </div>
         </div>
-
         <hr />
-
-        <div className="row mb-3 d-flex justify-content-between float-end">
-          <div>
-            <Link to={`/Kanbas/Courses/${cid}/Assignments`}>
+        {currentUser.role === "FACULTY" && (
+          <div className="row mb-3 d-flex justify-content-between float-end">
+            <div>
+              <Link to={`/Kanbas/Courses/${cid}/Assignments`}>
+                <button
+                  id="wd-edit-assignment-cancel"
+                  className="btn btn-secondary btn-outline-secondary me-1"
+                  type="button"
+                >
+                  Cancel
+                </button>
+              </Link>
               <button
-                id="wd-edit-assignment-cancel"
-                className="btn btn-secondary btn-outline-secondary me-1"
-                type="button"
+                id="wd-edit-assignment-save"
+                className="btn btn-danger me-1"
+                type="submit"
               >
-                Cancel
+                Save
               </button>
-            </Link>
-            <button
-              id="wd-edit-assignment-save"
-              className="btn btn-danger me-1"
-              type="submit"
-            >
-              Save
-            </button>
+            </div>
           </div>
-        </div>
+        )}
       </form>
     </div>
   );

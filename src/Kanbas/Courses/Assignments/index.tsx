@@ -55,18 +55,12 @@ export default function Assignments() {
                     <BsGripVertical className="me-2 fs-3" />
                     <MdOutlineAssignment className="me-3 text-success" />
                     <span>
-                      {currentUser.role === "FACULTY" ? (
-                        <a
-                          className="wd-assignment-link text-dark text-decoration-none fw-bold"
-                          href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}
-                        >
-                          {assignment.title}
-                        </a>
-                      ) : (
-                        <span className="wd-assignment-link text-dark text-decoration-none fw-bold">
-                          {assignment.title}
-                        </span>
-                      )}
+                      <a
+                        className="wd-assignment-link text-dark text-decoration-none fw-bold"
+                        href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}
+                      >
+                        {assignment.title}
+                      </a>
                       <br />
                       <span className="text-danger">Multiple Modules</span> |
                       <b> Not available until</b>{" "}

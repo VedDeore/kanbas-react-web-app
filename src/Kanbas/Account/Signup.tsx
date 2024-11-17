@@ -28,6 +28,41 @@ export default function Signup() {
         className="wd-password form-control mb-2"
         placeholder="password"
       />
+      <input
+        value={user.firstName}
+        onChange={(e) => setUser({ ...user, firstName: e.target.value })}
+        className="wd-firstname form-control mb-2"
+        placeholder="First Name"
+      />
+      <input
+        value={user.lastName}
+        onChange={(e) => setUser({ ...user, lastName: e.target.value })}
+        className="wd-lastname form-control mb-2"
+        placeholder="Last Name"
+      />
+      <input
+        value={user.dob}
+        onChange={(e) => setUser({ ...user, dob: e.target.value })}
+        className="wd-dob form-control mb-2"
+        type="date"
+      />
+      <input
+        value={user.email}
+        onChange={(e) => setUser({ ...user, email: e.target.value })}
+        className="wd-email form-control mb-2"
+        placeholder="Email"
+      />
+      <select
+        value={user.role || ""}
+        onChange={(e) => setUser({ ...user, role: e.target.value })}
+        className="wd-role form-select mb-2"
+      >
+        <option value="" disabled>
+          Select Role
+        </option>
+        <option value="FACULTY">Faculty</option>
+        <option value="STUDENT">Student</option>
+      </select>
       <button
         onClick={signup}
         className="wd-signup-btn btn btn-primary mb-2 w-100"

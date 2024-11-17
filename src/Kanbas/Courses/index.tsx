@@ -8,12 +8,26 @@ import { FaAlignJustify } from "react-icons/fa";
 import PeopleTable from "./People/Table";
 import ProtectedRoute from "../Account/ProtectedRoute";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import * as accountClient from "../Account/client";
 
 export default function Courses({ courses }: { courses: any[] }) {
   const { cid } = useParams();
   const { pathname } = useLocation();
-  const course = courses.find((course) => course._id === cid);
   const { currentUser } = useSelector((state: any) => state.accountReducer);
+
+  const [enrolledCourses, setEnrolledCourses] = useState<any[]>([]);
+  const course = enrolledCourses.find((course) => course._id === cid);
+
+  useEffect(() => {
+    const fetchEnrolledCourses = async () => {
+      const courses = await accountClient.findMyCourses();
+      setEnrolledCourses(courses);
+    };
+
+    fetchEnrolledCourses();
+  }, []);
+
   return (
     <div id="wd-courses">
       <h2 className="text-danger">

@@ -44,6 +44,9 @@ export default function Dashboard({
       setLocalCourses(updatedCourses);
       setEnrolledCourses(updatedCourses);
       dispatch(unenrollCourse({ userId: currentUser._id, courseId }));
+      if (showAllCourses) {
+        setShowAllCourses((prev) => !prev);
+      }
     } catch (error) {
       console.error("Unenrollment failed:", error);
     }

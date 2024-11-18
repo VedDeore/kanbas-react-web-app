@@ -1,3 +1,4 @@
+import QuizScreen from "./QuizScreen";
 export default function Quiz() {
-  return <div>Hello</div>;
+  return <QuizScreen />;
 }

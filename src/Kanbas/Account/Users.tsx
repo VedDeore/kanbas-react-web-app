@@ -17,6 +17,7 @@ export default function Users() {
       fetchUsers();
     }
   };
+
   const createUser = async () => {
     const user = await client.createUser({
       username: `newuser${Date.now()}`,

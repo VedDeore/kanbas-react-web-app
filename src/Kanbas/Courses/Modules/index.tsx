@@ -19,6 +19,7 @@ import * as modulesClient from "./client";
 export default function Modules() {
   const { cid } = useParams();
   const [moduleName, setModuleName] = useState("");
+  const [moduleId, setNewModuleId] = useState("");
   const { modules } = useSelector((state: any) => state.modulesReducer);
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
@@ -28,14 +29,16 @@ export default function Modules() {
   };
   useEffect(() => {
     fetchModules();
-  }, []);
+  }, [moduleId]);
   const createModuleForCourse = async () => {
     if (!cid) return;
     const newModule = { name: moduleName, course: cid };
     const module = await coursesClient.createModuleForCourse(cid, newModule);
+    setNewModuleId(module._id);
     dispatch(addModule(module));
   };
   const removeModule = async (moduleId: string) => {
+    console.log("removeModule", moduleId);
     await modulesClient.deleteModule(moduleId);
     dispatch(deleteModule(moduleId));
   };

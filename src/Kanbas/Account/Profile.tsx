@@ -82,25 +82,9 @@ export default function Profile() {
             type="email"
             onChange={(e) => setProfile({ ...profile, email: e.target.value })}
           />
-          {/* <select
-            onChange={(e) => setProfile({ ...profile, role: e.target.value })}
-            id="wd-role"
-            className="form-select mb-2"
-          >
-            <option>{profile.role}</option>
-          </select> */}
-          <select
-            value={profile.role || ""}
-            onChange={(e) => setProfile({ ...profile, role: e.target.value })}
-            id="wd-role"
-            className="form-select mb-2"
-          >
-            <option value="" disabled>
-              Select Role
-            </option>
-            <option value="FACULTY">Faculty</option>
-            <option value="STUDENT">Student</option>
-          </select>
+          <div id="wd-role" className="form-control mb-2">
+            {profile.role}
+          </div>
           <button
             onClick={updateProfile}
             className="btn btn-primary w-100 mb-2"

@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import ProtectedRoute from "./Account/ProtectedRoute";
-import * as courseClient from "./Courses/client";
-import * as accountClient from "./Account/client";
-import { enrollCourse, unenrollCourse } from "./Courses/reducer";
 
 export default function Dashboard({
   courses,
@@ -13,6 +9,9 @@ export default function Dashboard({
   addNewCourse,
   deleteCourse,
   updateCourse,
+  enrolling,
+  setEnrolling,
+  updateEnrollment,
 }: {
   courses: any[];
   course: any;
@@ -20,57 +19,11 @@ export default function Dashboard({
   addNewCourse: () => void;
   deleteCourse: (course: any) => void;
   updateCourse: () => void;
+  enrolling: boolean;
+  setEnrolling: (enrolling: boolean) => void;
+  updateEnrollment: (courseId: string, enrolled: boolean) => void;
 }) {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
-  const [localCourses, setLocalCourses] = useState<any[]>([]);
-  const [showAllCourses, setShowAllCourses] = useState(false);
-  const [enrolledCourses, setEnrolledCourses] = useState<any[]>([]);
-  const dispatch = useDispatch();
-  const handleEnroll = async (courseId: string) => {
-    try {
-      await courseClient.enrollCourse(currentUser._id, courseId);
-      const updatedCourses = await accountClient.findMyCourses();
-      setEnrolledCourses(updatedCourses);
-      dispatch(enrollCourse({ userId: currentUser._id, courseId }));
-    } catch (error) {
-      console.error("Enrollment failed:", error);
-    }
-  };
-
-  const handleUnenroll = async (courseId: string) => {
-    try {
-      await courseClient.unenrollCourse(currentUser._id, courseId);
-      const updatedCourses = await accountClient.findMyCourses();
-      setLocalCourses(updatedCourses);
-      setEnrolledCourses(updatedCourses);
-      dispatch(unenrollCourse({ userId: currentUser._id, courseId }));
-      if (showAllCourses) {
-        setShowAllCourses((prev) => !prev);
-      }
-    } catch (error) {
-      console.error("Unenrollment failed:", error);
-    }
-  };
-
-  const toggleCourseList = async () => {
-    setShowAllCourses((prev) => !prev);
-    if (!showAllCourses) {
-      const allCourses = await courseClient.fetchAllCourses();
-      setLocalCourses(allCourses);
-    } else {
-      setLocalCourses(enrolledCourses);
-    }
-  };
-
-  useEffect(() => {
-    const fetchEnrolledCourses = async () => {
-      const courses = await accountClient.findMyCourses();
-      setEnrolledCourses(courses);
-      setLocalCourses(courses);
-    };
-
-    fetchEnrolledCourses();
-  }, [courses]);
 
   return (
     <div id="wd-dashboard">
@@ -114,20 +67,23 @@ export default function Dashboard({
       )}
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h2 id="wd-dashboard-published">
-          {showAllCourses
-            ? "Published Courses (" + localCourses.length + ")"
-            : "Enrolled Courses (" + localCourses.length + ")"}
+          {enrolling
+            ? "Published Courses (" + courses.length + ")"
+            : "Enrolled Courses (" + courses.length + ")"}
         </h2>
         {currentUser.role === "STUDENT" && (
-          <button className="btn btn-primary" onClick={toggleCourseList}>
-            {showAllCourses ? "Show Enrolled Courses" : "Show All Course"}
+          <button
+            onClick={() => setEnrolling(!enrolling)}
+            className="float-end btn btn-primary"
+          >
+            {enrolling ? "My Courses" : "All Courses"}
           </button>
         )}
       </div>
       <hr />
       <div id="wd-dashboard-courses" className="row">
         <div className="row row-cols-1 row-cols-md-5">
-          {localCourses.map((course) => (
+          {courses.map((course) => (
             <div
               key={course._id}
               className="wd-dashboard-course col mb-3 mt-3"
@@ -158,29 +114,19 @@ export default function Dashboard({
                       </p>
                       <div className="d-flex justify-content-between align-items-center mb-3">
                         <button className="btn btn-primary"> Go </button>
-                        {currentUser.role === "STUDENT" &&
-                          (enrolledCourses.some((c) => c._id === course._id) ? (
-                            <button
-                              className="btn btn-danger me-2"
-                              onClick={(event) => {
-                                event.preventDefault();
-                                handleUnenroll(course._id);
-                              }}
-                            >
-                              Unenroll
-                            </button>
-                          ) : (
-                            <button
-                              className="btn btn-success me-2"
-                              onClick={(event) => {
-                                event.preventDefault();
-                                handleEnroll(course._id);
-                              }}
-                            >
-                              Enroll
-                            </button>
-                          ))}
-
+                        {currentUser.role === "STUDENT" && enrolling && (
+                          <button
+                            onClick={(event) => {
+                              event.preventDefault();
+                              updateEnrollment(course._id, !course.enrolled);
+                            }}
+                            className={`btn ${
+                              course.enrolled ? "btn-danger" : "btn-success"
+                            } float-end`}
+                          >
+                            {course.enrolled ? "Unenroll" : "Enroll"}
+                          </button>
+                        )}
                         {currentUser.role === "FACULTY" && (
                           <span>
                             <button

@@ -10,11 +10,24 @@ import ProtectedRoute from "../Account/ProtectedRoute";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import * as accountClient from "../Account/client";
+import * as courseClient from "./client";
 
 export default function Courses({ courses }: { courses: any[] }) {
   const { cid } = useParams();
   const { pathname } = useLocation();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const [users, setUsers] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      if (cid) {
+        const users = await courseClient.findUsersForCourse(cid);
+        setUsers(users);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   const [enrolledCourses, setEnrolledCourses] = useState<any[]>([]);
   const course = enrolledCourses.find((course) => course._id === cid);
@@ -53,7 +66,7 @@ export default function Courses({ courses }: { courses: any[] }) {
             <Route path="Assignments/:aid" element={<AssignmentEditor />} />
             <Route path="Quizzes" element={<h2>Quizzes</h2>} />
             <Route path="Grades" element={<h2>Grades</h2>} />
-            <Route path="People" element={<PeopleTable />} />
+            <Route path="People" element={<PeopleTable users={users} />} />
           </Routes>
         </div>
       </div>

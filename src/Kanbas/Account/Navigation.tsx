@@ -7,15 +7,30 @@ export default function AccountNavigation() {
   return (
     <div id="wd-account-navigation" className="wd list-group fs-5 rounded-0">
       {links.includes("Profile") ? (
-        <Link
-          id="wd-course-piazza-link"
-          to="/Kanbas/Account/Profile"
-          className={`list-group-item ${
-            pathname.includes("Profile") ? "active" : "text-danger"
-          } border border-0`}
-        >
-          Profile
-        </Link>
+        <>
+          <Link
+            id="wd-course-piazza-link"
+            to="/Kanbas/Account/Profile"
+            className={`list-group-item ${
+              pathname.includes("Profile") ? "active" : "text-danger"
+            } border border-0`}
+          >
+            Profile
+          </Link>
+          {currentUser && currentUser.role === "ADMIN" && (
+            <>
+              <Link
+                to={`/Kanbas/Account/Users`}
+                className={`list-group-item ${
+                  pathname.includes("Users") ? "active" : "text-danger"
+                } border border-0`}
+              >
+                Users
+              </Link>
+              <br />
+            </>
+          )}
+        </>
       ) : (
         <>
           <Link

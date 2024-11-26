@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Navigate, useParams } from "react-router-dom";
 import axios from "axios";
+const axiosWithCredentials = axios.create({ withCredentials: true });
 const REMOTE_SERVER = process.env.REACT_APP_REMOTE_SERVER;
 
 export default function ProtectedRoute({ children }: { children: any }) {
@@ -24,7 +25,7 @@ export default function ProtectedRoute({ children }: { children: any }) {
       }
 
       try {
-        const response = await axios.get(
+        const response = await axiosWithCredentials.get(
           `${REMOTE_SERVER}/api/users/${currentUser._id}/courses`
         );
         setIsEnrolled(

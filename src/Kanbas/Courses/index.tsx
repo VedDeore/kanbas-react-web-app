@@ -10,6 +10,7 @@ import ProtectedRoute from "../Account/ProtectedRoute";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import * as accountClient from "../Account/client";
+import * as courseClient from "./client";
 import Quiz from "./Quiz";
 
 export default function Courses({ courses }: { courses: any[] }) {

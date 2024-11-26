@@ -19,8 +19,14 @@ export default function PeopleDetails() {
   };
 
   const saveUser = async () => {
-    const [firstName, lastName] = name.split(" ");
-    const updatedUser = { ...user, firstName, lastName, email, role };
+    const [firstName, lastName = ""] = name.split(" ");
+    const updatedUser = {
+      ...user,
+      firstName,
+      lastName,
+      email: email || user.email,
+      role: role || user.role,
+    };
     await client.updateUser(updatedUser);
     setUser(updatedUser);
     setEditing(false);
@@ -51,7 +57,12 @@ export default function PeopleDetails() {
       <div className="">
         {!editing && (
           <FaPencil
-            onClick={() => setEditing(true)}
+            onClick={() => {
+              setEditing(true);
+              setName(`${user.firstName || ""} ${user.lastName || ""}`.trim());
+              setEmail(user.email || "");
+              setRole(user.role || "");
+            }}
             className="float-end fs-5 mt-2 wd-edit"
           />
         )}
@@ -65,7 +76,14 @@ export default function PeopleDetails() {
           <>
             <div
               className="text-danger fs-4 wd-name"
-              onClick={() => setEditing(true)}
+              onClick={() => {
+                setEditing(true);
+                setName(
+                  `${user.firstName || ""} ${user.lastName || ""}`.trim()
+                );
+                setEmail(user.email || "");
+                setRole(user.role || "");
+              }}
             >
               {user.firstName} {user.lastName}
             </div>
@@ -81,7 +99,7 @@ export default function PeopleDetails() {
           <>
             <input
               className="form-control w-50 wd-edit-name"
-              defaultValue={`${user.firstName} ${user.lastName}`}
+              value={name}
               onChange={(e) => setName(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
@@ -91,7 +109,7 @@ export default function PeopleDetails() {
             />
             <br />
             <select
-              defaultValue={user.role}
+              value={role}
               onChange={(e) => setRole(e.target.value)}
               className="form-select w-50 wd-edit-role"
             >
@@ -104,7 +122,7 @@ export default function PeopleDetails() {
             <input
               className="form-control w-50 wd-edit-email"
               type="email"
-              defaultValue={user.email}
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {

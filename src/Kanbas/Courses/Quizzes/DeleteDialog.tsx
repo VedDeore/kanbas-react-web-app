@@ -1,20 +1,17 @@
 import { useDispatch } from "react-redux";
-import * as assignmentsClient from "./client";
-import { deleteAssignment } from "./reducer";
+import * as quizzesClient from "./client";
+import { deleteQuiz } from "./reducer";
 import LessonControlButtons from "../Modules/LessonControlButtons";
 import { FaTrash } from "react-icons/fa";
 import { useState } from "react";
 
-export default function DeleteDialog({
-  assignmentId,
-}: {
-  assignmentId: string;
-}) {
+export default function DeleteDialog({ quizId }: { quizId: string }) {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const handleDelete = async () => {
-    await assignmentsClient.deleteAssignment(assignmentId);
-    dispatch(deleteAssignment(assignmentId));
+    console.log("Deleting quiz", quizId);
+    await quizzesClient.deleteQuiz(quizId);
+    dispatch(deleteQuiz(quizId));
     setShowModal(false);
   };
 
@@ -34,11 +31,11 @@ export default function DeleteDialog({
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="staticBackdropLabel">
-                Delete Assignment
+                Delete Quiz
               </h1>
             </div>
             <div className="modal-body">
-              <p>Are you sure you want to remove this assignment?</p>
+              <p>Are you sure you want to remove this quiz?</p>
             </div>
             <div className="modal-footer">
               <button

@@ -21,7 +21,6 @@ export default function Details() {
       hour12: true,
       timeZone: "UTC",
     };
-    console.log(date.toLocaleString("en-US", options));
     return date.toLocaleString("en-US", options);
   };
 

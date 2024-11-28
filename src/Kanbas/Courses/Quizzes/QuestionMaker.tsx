@@ -4,10 +4,14 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Link, useParams } from "react-router-dom";
 import { FaArrowAltCircleRight } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { updateQuiz } from "./reducer";
+import * as quizzesClient from "./client";
 
-export default function QuestionMaker() {
-  const { cid } = useParams();
-  const [questionType, setQuestionType] = useState("MULTIPLE");
+export default function QuestionMaker({ question }: { question: any }) {
+  const { cid, qid } = useParams();
+  const [questionType, setQuestionType] = useState(question.Type);
+  const [currentQuestion, setCurrentQuestion] = useState<any>(null);
   const [answers, setAnswers] = useState<
     { text: string; isCorrect: boolean }[]
   >([{ text: "", isCorrect: false }]);
@@ -55,16 +59,22 @@ export default function QuestionMaker() {
     }
   }, [questionType]);
 
+  const dispatch = useDispatch();
+  const handleSave = async (e: any) => {
+    await quizzesClient.updateQuestion(question);
+    dispatch(updateQuiz(question));
+  };
+
   return (
-    <div id="wd-questionmaker">
-      <form action="">
+    <div id="wd-questionMaker">
+      <form onSubmit={handleSave}>
         <div className="row mb-3">
           <div className="col-sm-4">
             <input
               className="form-control"
               id="wd-question-name"
               placeholder="Question Title"
-              defaultValue="Easy Question"
+              value={question.title}
               required
             />
           </div>
@@ -72,12 +82,12 @@ export default function QuestionMaker() {
             <select
               id="wd-question-type"
               className="form-select"
-              value={questionType}
+              value={question.type}
               onChange={(e) => setQuestionType(e.target.value)}
             >
               <option value="MULTIPLE">Multiple Choice Questions</option>
               <option value="TRUEFALSE">True/False Questions</option>
-              <option value="FILL">Fill in the blanks questions</option>
+              <option value="FILLIN">Fill in the blanks questions</option>
             </select>
           </div>
           <div className="col-sm-4 d-flex align-items-center">
@@ -87,27 +97,24 @@ export default function QuestionMaker() {
               className="form-control"
               id="wd-points"
               placeholder="Points"
-              defaultValue="4"
+              value={question.points}
               required
             />
           </div>
         </div>
         <hr />
         <div className="d-flex mb-3">
-          {/* {questionType === "MULTIPLE" ? (
-          <>Enter your question and multiple answers, then select the one correct
-          answer.</>): ()} */}
-          {questionType === "MULTIPLE" ? (
+          {question.type === "MULTIPLE" ? (
             <>
-              Enter your question and multiple answers, then select the one
-              correct answer.
+              Enter your question and multiple answers, then select one correct
+              answer.
             </>
-          ) : questionType === "TRUEFALSE" ? (
+          ) : question.type === "TRUEFALSE" ? (
             <>
               Enter your question text, then select if True or False is the
               correct answer.
             </>
-          ) : questionType === "FILL" ? (
+          ) : question.type === "FILLIN" ? (
             <>
               Enter your question text, then define all possible correct answers
               for the blank. Students will see the question followed by a small
@@ -116,11 +123,11 @@ export default function QuestionMaker() {
           ) : null}
         </div>
         <div className="row mb-3">
-          <b>Question:</b>
+          <b>Description:</b>
         </div>
         <div className="mb-3">
           <ReactQuill
-            value=""
+            value={question.description}
             placeholder="Quiz Description"
             theme="snow"
             className="form-control"
@@ -129,12 +136,12 @@ export default function QuestionMaker() {
         <div className="row mb-3">
           <b>Answers:</b>
         </div>
-        {questionType === "TRUEFALSE" && answers.length >= 2 ? (
+        {question.type === "TRUEFALSE" ? (
           <>
             <div className="d-flex mb-3 align-items-center">
               <span
                 className={`col-sm-2 text-end ${
-                  answers[0].isCorrect ? "text-success fw-bold" : ""
+                  question.correct ? "text-success fw-bold" : ""
                 }`}
               >
                 <span
@@ -143,10 +150,10 @@ export default function QuestionMaker() {
                 >
                   <FaArrowAltCircleRight
                     className={`me-3 ${
-                      answers[0].isCorrect ? "text-success" : "text-secondary"
+                      question.correct ? "text-success" : "text-secondary"
                     }`}
                   />
-                  {answers[0].isCorrect ? "Correct Answer" : "Possible Answer"}
+                  {question.correct ? "Correct Answer" : "Possible Answer"}
                 </span>
               </span>
               <input
@@ -159,7 +166,7 @@ export default function QuestionMaker() {
             <div className="d-flex mb-3 align-items-center">
               <span
                 className={`col-sm-2 text-end ${
-                  answers[1].isCorrect ? "text-success fw-bold" : ""
+                  !question.correct ? "text-success fw-bold" : ""
                 }`}
               >
                 <span
@@ -168,10 +175,10 @@ export default function QuestionMaker() {
                 >
                   <FaArrowAltCircleRight
                     className={`me-3 ${
-                      answers[1].isCorrect ? "text-success" : "text-secondary"
+                      !question.correct ? "text-success" : "text-secondary"
                     }`}
                   />
-                  {answers[1].isCorrect ? "Correct Answer" : "Possible Answer"}
+                  {!question.correct ? "Correct Answer" : "Possible Answer"}
                 </span>
               </span>
               <input
@@ -182,12 +189,12 @@ export default function QuestionMaker() {
               />
             </div>
           </>
-        ) : questionType === "MULTIPLE" ? (
-          answers.map((answer, index) => (
+        ) : question.type === "MULTIPLE" ? (
+          question.choices.map((answer: any, index: any) => (
             <div className="d-flex mb-3 align-items-center" key={index}>
               <span
                 className={`col-sm-2 text-end ${
-                  answer.isCorrect ? "text-success fw-bold" : ""
+                  question.choices[index].correct ? "text-success fw-bold" : ""
                 }`}
               >
                 <span
@@ -196,10 +203,14 @@ export default function QuestionMaker() {
                 >
                   <FaArrowAltCircleRight
                     className={`me-3 ${
-                      answer.isCorrect ? "text-success" : "text-secondary"
+                      question.choices[index].correct
+                        ? "text-success"
+                        : "text-secondary"
                     }`}
                   />
-                  {answer.isCorrect ? "Correct Answer" : "Possible Answer"}
+                  {question.choices[index].correct
+                    ? "Correct Answer"
+                    : "Possible Answer"}
                 </span>
               </span>
               <input
@@ -207,7 +218,7 @@ export default function QuestionMaker() {
                 className="form-control ms-3 me-4"
                 id="wd-answer"
                 placeholder="Answer"
-                value={answer.text}
+                value={question.choices[index].answer}
                 onChange={(e) => updateAnswer(index, e.target.value)}
                 required
               />
@@ -221,15 +232,15 @@ export default function QuestionMaker() {
               </>
             </div>
           ))
-        ) : questionType === "FILL" ? (
-          answers.map((answer, index) => (
+        ) : question.type === "FILLIN" ? (
+          question.correct.map((answer: any, index: any) => (
             <div className="d-flex mb-3 align-items-center" key={index}>
               <input
                 type="text"
                 className="form-control ms-3 me-4"
                 id="wd-answer"
                 placeholder="Answer"
-                value={answer.text}
+                value={question.correct[index]}
                 onChange={(e) => updateAnswer(index, e.target.value)}
                 required
               />
@@ -244,7 +255,7 @@ export default function QuestionMaker() {
             </div>
           ))
         ) : null}
-        {questionType !== "TRUEFALSE" && (
+        {question.type !== "TRUEFALSE" && (
           <div className="d-flex mb-3 justify-content-end">
             <button
               type="button"
@@ -257,7 +268,7 @@ export default function QuestionMaker() {
         )}
         <div className="row mb-3 d-flex">
           <div>
-            <Link to={`/Kanbas/Courses/${cid}/Quizzes`}>
+            <Link to={`/Kanbas/Courses/${cid}/Quizzes/${qid}`}>
               <button
                 id="wd-edit-quiz-cancel"
                 className="btn btn-secondary btn-outline-secondary me-1"

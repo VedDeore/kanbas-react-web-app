@@ -7,7 +7,14 @@ import { MdDoNotDisturbAlt } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import * as quizzesClient from "./client";
 import * as coursesClient from "../client";
-import { addQuiz, setQuestions, setQuizzes, updateQuiz } from "./reducer";
+import {
+  addQuestion,
+  addQuiz,
+  setQuestions,
+  setQuizzes,
+  updateQuestion,
+  updateQuiz,
+} from "./reducer";
 import QuestionMaker from "./QuestionMaker";
 import { FaCheckCircle, FaCircle } from "react-icons/fa";
 
@@ -20,24 +27,22 @@ export default function QuizEditor() {
   const [isLoading, setIsLoading] = useState(true);
   const [isTimeLimitEnabled, setIsTimeLimitEnabled] = useState(false);
   const [activeTab, setActiveTab] = useState("details");
-  const [questionMakers, setQuestionMakers] = useState<JSX.Element[]>([]);
   const [questions, setAllQuestions] = useState<any[]>([]);
+  const [currentId, setCurrentId] = useState(0);
 
   const dispatch = useDispatch();
 
   const addQuestionMaker = () => {
     const newQuestion = {
-      id: Date.now(),
+      currentid: Date.now(),
       type: "MULTIPLE",
       title: "",
       points: 0,
       description: "",
       choices: [{ answer: "", correct: false }],
     };
-    setQuestionMakers([
-      ...questionMakers,
-      <QuestionMaker question={newQuestion} />,
-    ]);
+    setCurrentId(Date.now());
+    setAllQuestions([...questions, newQuestion]);
   };
 
   useEffect(() => {
@@ -81,20 +86,25 @@ export default function QuizEditor() {
         setQuiz(initialQuiz);
 
         // Fetch questions for the quiz
-        const questionsData = await quizzesClient.findQuestionsForQuiz(
-          qid as string
-        );
-        setAllQuestions(questionsData);
-        dispatch(setQuestions(questionsData));
+        if (qid !== "NewQuiz") {
+          const questionsData = await quizzesClient.findQuestionsForQuiz(
+            qid as string
+          );
+          setAllQuestions(questionsData);
+          dispatch(setQuestions(questionsData));
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
         setIsLoading(false);
       }
     };
-
     fetchData();
   }, [quizzes, qid, cid, dispatch]);
+
+  const updateQuestionPoints = async (newPoints: number) => {
+    setQuiz({ ...quiz, points: newPoints });
+  };
 
   if (isLoading) {
     return <p>Loading quiz data...</p>;
@@ -124,6 +134,11 @@ export default function QuizEditor() {
     navigate(`/Kanbas/Courses/${cid}/Quizzes`);
   };
 
+  const handleCancel = () => {
+    setAllQuestions(questions.slice(0, -1));
+    dispatch(setQuestions(questions.slice(0, -1)));
+  };
+
   const formatDateForInput = (isoDate: any) => {
     if (!isoDate) return "";
     const date = new Date(isoDate);
@@ -144,13 +159,7 @@ export default function QuizEditor() {
     <div id="wd-quiz-editor" className="p-3">
       <div className="d-flex justify-content-end align-items-center mb-3">
         <div className="d-flex align-items-center">
-          <span className="me-3">
-            Points:{" "}
-            {questions.reduce(
-              (sum, question) => sum + (question.points || 0),
-              0
-            )}
-          </span>
+          <span className="me-3">Points:{quiz.points}</span>
           {quiz.published ? (
             <>
               <span className="me-1 position-relative">
@@ -523,15 +532,15 @@ export default function QuizEditor() {
             {questions.map((question: any, index: number) => (
               <div key={question.id} className="question">
                 <div className="fs-4 fw-bold mb-2">Question: {index + 1}</div>
-                <QuestionMaker question={question} />
+                <QuestionMaker
+                  question={question}
+                  quiz={quiz}
+                  onPointsChange={updateQuestionPoints}
+                  onCanceled={handleCancel}
+                  currentId={currentId}
+                />
                 <hr />
               </div>
-            ))}
-          </div>
-
-          <div className="question-makers-list">
-            {questionMakers.map((questionMaker, index) => (
-              <div key={index}>{questionMaker}</div>
             ))}
           </div>
 

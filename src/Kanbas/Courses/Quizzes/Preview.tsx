@@ -129,12 +129,15 @@ export default function Preview() {
                 </div>
               </div>
               <div className="row mb-2">
-                <span className="mb-3">
+                <span className="mb-2">
                   <h4 className="mb-2">
                     {questions[currentQuestionIndex].title}
                   </h4>
-                  {questions[currentQuestionIndex].description}
-                  <br />
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: questions[currentQuestionIndex].description,
+                    }}
+                  />
                 </span>
                 {questions[currentQuestionIndex].type === "MULTIPLE" && (
                   <div>
@@ -146,7 +149,6 @@ export default function Preview() {
                             className="form-check-input"
                             name={`multiple-${currentQuestionIndex}`}
                             id={`choice-${index}`}
-                            value={choice.answer}
                           />
                           <label
                             htmlFor={`choice-${index}`}

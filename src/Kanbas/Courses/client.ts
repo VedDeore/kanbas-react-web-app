@@ -46,6 +46,7 @@ export const createAssignmentForCourse = async (
   return response.data;
 };
 export const createQuizForCourse = async (courseId: string, quiz: any) => {
+  console.log("quiz", quiz);
   const response = await axiosWithCredentials.post(
     `${COURSES_API}/${courseId}/quizzes`,
     quiz

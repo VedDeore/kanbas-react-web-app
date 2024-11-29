@@ -1,69 +1,163 @@
 import { useEffect, useState } from "react";
-import { FaPencil, FaTrash } from "react-icons/fa6";
+import { FaTrash } from "react-icons/fa6";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Link, useParams } from "react-router-dom";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { updateQuiz } from "./reducer";
+import { addQuestion, updateQuestion } from "./reducer";
 import * as quizzesClient from "./client";
 
-export default function QuestionMaker({ question }: { question: any }) {
+export default function QuestionMaker({
+  question: initialQuestion,
+  quiz,
+  onPointsChange,
+  onCanceled,
+  currentId,
+}: {
+  question: any;
+  quiz: any;
+  onPointsChange: any;
+  onCanceled: any;
+  currentId: any;
+}) {
   const { cid, qid } = useParams();
-  const [questionType, setQuestionType] = useState(question.Type);
-  const [currentQuestion, setCurrentQuestion] = useState<any>(null);
+  const [questionType, setQuestionType] = useState(initialQuestion.type);
+  const [question, setQuestion] = useState<any>(initialQuestion);
+  const [currentQuiz, setCurrentQuiz] = useState<any>(quiz);
+  const [oldPoints, setOldPoints] = useState(initialQuestion.points);
+  const [editing, setEditing] = useState(false);
+  const [cancel, setCancel] = useState(true);
+
   const [answers, setAnswers] = useState<
     { text: string; isCorrect: boolean }[]
-  >([{ text: "", isCorrect: false }]);
+  >([]);
 
   const addAnswer = () => {
-    if (questionType === "TRUEFALSE") {
-      setAnswers([
-        { text: "True", isCorrect: false },
-        { text: "False", isCorrect: false },
-      ]);
-    } else {
-      setAnswers([...answers, { text: "", isCorrect: false }]);
+    if (editing) {
+      if (questionType === "TRUEFALSE") {
+        setAnswers([
+          { text: "True", isCorrect: false },
+          { text: "False", isCorrect: false },
+        ]);
+      } else {
+        setAnswers([...answers, { text: "", isCorrect: false }]);
+      }
     }
   };
 
   const updateAnswer = (index: number, value: string) => {
-    const updatedAnswers = [...answers];
-    updatedAnswers[index].text = value;
-    setAnswers(updatedAnswers);
+    if (editing) {
+      const updatedAnswers = [...answers];
+      updatedAnswers[index].text = value;
+      setAnswers(updatedAnswers);
+    }
   };
 
   const toggleCorrectAnswer = (index: number) => {
-    const updatedAnswers = answers.map((answer, i) => ({
-      ...answer,
-      isCorrect: i === index ? !answer.isCorrect : false,
-    }));
-    setAnswers(updatedAnswers);
+    if (editing) {
+      const updatedAnswers = answers.map((answer: any, i: any) => ({
+        ...answer,
+        isCorrect: i === index ? !answer.isCorrect : false,
+      }));
+      setAnswers(updatedAnswers);
+    }
   };
 
-  // Fixed removeAnswer function
   const removeAnswer = (indexToRemove: number) => {
-    setAnswers((prevAnswers) =>
-      prevAnswers.filter((_, index) => index !== indexToRemove)
-    );
+    if (editing) {
+      setAnswers((prevAnswers: any) =>
+        prevAnswers.filter((_: any, index: any) => index !== indexToRemove)
+      );
+    }
   };
 
   useEffect(() => {
+    if (initialQuestion.title === "") {
+      setEditing(true);
+    }
     if (questionType === "TRUEFALSE") {
       setAnswers([
-        { text: "True", isCorrect: false },
-        { text: "False", isCorrect: false },
+        { text: "True", isCorrect: question.correct === true },
+        { text: "False", isCorrect: question.correct === false },
       ]);
     } else {
-      setAnswers([{ text: "", isCorrect: false }]);
+      setAnswers(
+        question.choices?.map((choice: any) => ({
+          text: choice.answer,
+          isCorrect: choice.correct,
+        })) || []
+      );
     }
   }, [questionType]);
 
   const dispatch = useDispatch();
   const handleSave = async (e: any) => {
-    await quizzesClient.updateQuestion(question);
-    dispatch(updateQuiz(question));
+    const formattedQuestion = {
+      ...question,
+      choices: answers.map((answer: any) => ({
+        ...answer,
+        answer: answer.text.trim(),
+        correct: answer.isCorrect,
+      })),
+    };
+    console.log("First Formatted Question", formattedQuestion);
+    if (initialQuestion.currentid == currentId) {
+      console.log("Question is empty");
+      await quizzesClient.createQuestionForQuiz(
+        qid as string,
+        formattedQuestion
+      );
+      dispatch(addQuestion(formattedQuestion));
+      const newPoints = currentQuiz.points + parseInt(formattedQuestion.points);
+      onPointsChange(newPoints);
+      await quizzesClient.updateQuiz({
+        ...quiz,
+        points: newPoints,
+        numberOfQuestions: quiz.numberOfQuestions + 1,
+      });
+      setCurrentQuiz({ ...currentQuiz, points: newPoints });
+      initialQuestion.currentid = "";
+    } else {
+      console.log("Formatted Question", formattedQuestion);
+      await quizzesClient.updateQuestion(formattedQuestion);
+      dispatch(updateQuestion(formattedQuestion));
+      console.log("oldPoints", oldPoints);
+      const newPoints =
+        currentQuiz.points - oldPoints + parseInt(formattedQuestion.points);
+      console.log("newPoints", newPoints);
+      setOldPoints(parseInt(formattedQuestion.points));
+      console.log("Second oldPoints", oldPoints);
+
+      onPointsChange(newPoints);
+      await quizzesClient.updateQuiz({
+        ...quiz,
+        points: newPoints,
+      });
+      setCurrentQuiz({ ...currentQuiz, points: newPoints });
+    }
+    setEditing(false);
   };
+
+  const handleCancel = () => {
+    if (initialQuestion.title === "") {
+      onCanceled();
+    }
+    setCancel(!cancel);
+    setEditing(false);
+  };
+
+  useEffect(() => {
+    setQuestion(initialQuestion);
+    setOldPoints(initialQuestion.points);
+    setQuestionType(initialQuestion.type);
+    setAnswers(
+      initialQuestion.choices?.map((choice: any) => ({
+        text: choice.answer,
+        isCorrect: choice.correct,
+      })) || []
+    );
+  }, [cancel]);
 
   return (
     <div id="wd-questionMaker">
@@ -75,7 +169,11 @@ export default function QuestionMaker({ question }: { question: any }) {
               id="wd-question-name"
               placeholder="Question Title"
               value={question.title}
+              onChange={(e) =>
+                setQuestion({ ...question, title: e.target.value })
+              }
               required
+              disabled={!editing}
             />
           </div>
           <div className="col-sm-4">
@@ -83,7 +181,12 @@ export default function QuestionMaker({ question }: { question: any }) {
               id="wd-question-type"
               className="form-select"
               value={question.type}
-              onChange={(e) => setQuestionType(e.target.value)}
+              onChange={(e) => {
+                setQuestionType(e.target.value);
+                setQuestion({ ...question, type: e.target.value });
+              }}
+              disabled={!editing}
+              required
             >
               <option value="MULTIPLE">Multiple Choice Questions</option>
               <option value="TRUEFALSE">True/False Questions</option>
@@ -98,23 +201,27 @@ export default function QuestionMaker({ question }: { question: any }) {
               id="wd-points"
               placeholder="Points"
               value={question.points}
+              onChange={(e) => {
+                setQuestion({ ...question, points: e.target.value });
+              }}
               required
+              disabled={!editing}
             />
           </div>
         </div>
         <hr />
         <div className="d-flex mb-3">
-          {question.type === "MULTIPLE" ? (
+          {questionType === "MULTIPLE" ? (
             <>
               Enter your question and multiple answers, then select one correct
               answer.
             </>
-          ) : question.type === "TRUEFALSE" ? (
+          ) : questionType === "TRUEFALSE" ? (
             <>
               Enter your question text, then select if True or False is the
               correct answer.
             </>
-          ) : question.type === "FILLIN" ? (
+          ) : questionType === "FILLIN" ? (
             <>
               Enter your question text, then define all possible correct answers
               for the blank. Students will see the question followed by a small
@@ -128,164 +235,128 @@ export default function QuestionMaker({ question }: { question: any }) {
         <div className="mb-3">
           <ReactQuill
             value={question.description}
+            onChange={(value) =>
+              setQuestion({ ...question, description: value })
+            }
             placeholder="Quiz Description"
             theme="snow"
             className="form-control"
+            readOnly={!editing}
           />
         </div>
         <div className="row mb-3">
           <b>Answers:</b>
         </div>
-        {question.type === "TRUEFALSE" ? (
-          <>
-            <div className="d-flex mb-3 align-items-center">
-              <span
-                className={`col-sm-2 text-end ${
-                  question.correct ? "text-success fw-bold" : ""
-                }`}
-              >
+        {questionType === "MULTIPLE" || questionType === "TRUEFALSE"
+          ? answers.map((answer: any, index: any) => (
+              <div className="d-flex mb-3 align-items-center" key={index}>
                 <span
-                  onClick={() => toggleCorrectAnswer(0)}
-                  style={{ cursor: "pointer" }}
+                  className={`col-sm-2 text-end ${
+                    answer.isCorrect ? "text-success fw-bold" : ""
+                  }`}
                 >
-                  <FaArrowAltCircleRight
-                    className={`me-3 ${
-                      question.correct ? "text-success" : "text-secondary"
-                    }`}
-                  />
-                  {question.correct ? "Correct Answer" : "Possible Answer"}
+                  <span
+                    onClick={() => toggleCorrectAnswer(index)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <FaArrowAltCircleRight
+                      className={`me-3 ${
+                        answer.isCorrect ? "text-success" : "text-secondary"
+                      }`}
+                    />
+                    {answer.isCorrect ? "Correct Answer" : "Possible Answer"}
+                  </span>
                 </span>
-              </span>
-              <input
-                type="text"
-                className="form-control ms-3 me-4"
-                value="True"
-                readOnly
-              />
-            </div>
-            <div className="d-flex mb-3 align-items-center">
-              <span
-                className={`col-sm-2 text-end ${
-                  !question.correct ? "text-success fw-bold" : ""
-                }`}
-              >
-                <span
-                  onClick={() => toggleCorrectAnswer(1)}
-                  style={{ cursor: "pointer" }}
-                >
-                  <FaArrowAltCircleRight
-                    className={`me-3 ${
-                      !question.correct ? "text-success" : "text-secondary"
-                    }`}
-                  />
-                  {!question.correct ? "Correct Answer" : "Possible Answer"}
-                </span>
-              </span>
-              <input
-                type="text"
-                className="form-control ms-3 me-4"
-                value="False"
-                readOnly
-              />
-            </div>
-          </>
-        ) : question.type === "MULTIPLE" ? (
-          question.choices.map((answer: any, index: any) => (
-            <div className="d-flex mb-3 align-items-center" key={index}>
-              <span
-                className={`col-sm-2 text-end ${
-                  question.choices[index].correct ? "text-success fw-bold" : ""
-                }`}
-              >
-                <span
-                  onClick={() => toggleCorrectAnswer(index)}
-                  style={{ cursor: "pointer" }}
-                >
-                  <FaArrowAltCircleRight
-                    className={`me-3 ${
-                      question.choices[index].correct
-                        ? "text-success"
-                        : "text-secondary"
-                    }`}
-                  />
-                  {question.choices[index].correct
-                    ? "Correct Answer"
-                    : "Possible Answer"}
-                </span>
-              </span>
-              <input
-                type="text"
-                className="form-control ms-3 me-4"
-                id="wd-answer"
-                placeholder="Answer"
-                value={question.choices[index].answer}
-                onChange={(e) => updateAnswer(index, e.target.value)}
-                required
-              />
-              <>
-                <FaPencil className="text-primary me-3" />
-                <FaTrash
-                  className="text-danger me-2 mb-1"
-                  onClick={() => removeAnswer(index)}
-                  style={{ cursor: "pointer" }}
+                <input
+                  type="text"
+                  className="form-control ms-3 me-4"
+                  id="wd-answer"
+                  placeholder="Answer"
+                  value={answer.text}
+                  onChange={(e) => updateAnswer(index, e.target.value)}
+                  required
+                  disabled={questionType === "TRUEFALSE" || !editing}
                 />
-              </>
-            </div>
-          ))
-        ) : question.type === "FILLIN" ? (
-          question.correct.map((answer: any, index: any) => (
-            <div className="d-flex mb-3 align-items-center" key={index}>
-              <input
-                type="text"
-                className="form-control ms-3 me-4"
-                id="wd-answer"
-                placeholder="Answer"
-                value={question.correct[index]}
-                onChange={(e) => updateAnswer(index, e.target.value)}
-                required
-              />
-              <>
-                <FaPencil className="text-primary me-3" />
-                <FaTrash
-                  className="text-danger me-2 mb-1"
-                  onClick={() => removeAnswer(index)}
-                  style={{ cursor: "pointer" }}
+                {questionType !== "TRUEFALSE" && editing && (
+                  <FaTrash
+                    className="text-danger me-2 mb-1"
+                    onClick={() => removeAnswer(index)}
+                    style={{ cursor: "pointer" }}
+                  />
+                )}
+              </div>
+            ))
+          : answers.map((answer: any, index: any) => (
+              <div className="d-flex mb-3 align-items-center" key={index}>
+                <input
+                  type="text"
+                  className="form-control ms-3 me-4"
+                  id="wd-answer"
+                  placeholder="Answer"
+                  value={answer.text}
+                  onChange={(e) => updateAnswer(index, e.target.value)}
+                  required
+                  disabled={!editing}
                 />
-              </>
-            </div>
-          ))
-        ) : null}
-        {question.type !== "TRUEFALSE" && (
+                {editing && (
+                  <FaTrash
+                    className="text-danger me-2 mb-1"
+                    onClick={() => removeAnswer(index)}
+                    style={{ cursor: "pointer" }}
+                  />
+                )}
+              </div>
+            ))}
+        {questionType !== "TRUEFALSE" && editing && (
           <div className="d-flex mb-3 justify-content-end">
             <button
               type="button"
               className="btn text-danger"
               onClick={addAnswer}
+              disabled={!editing}
             >
               + Add Another Answer
             </button>
           </div>
         )}
-        <div className="row mb-3 d-flex">
-          <div>
-            <Link to={`/Kanbas/Courses/${cid}/Quizzes/${qid}`}>
+        {editing ? (
+          <div className="row mb-3 d-flex">
+            <div>
+              <Link to={`/Kanbas/Courses/${cid}/Quizzes/${qid}`}>
+                <button
+                  id="wd-edit-quiz-cancel"
+                  className="btn btn-secondary btn-outline-secondary me-1"
+                  type="button"
+                  onClick={() => {
+                    handleCancel();
+                  }}
+                >
+                  Cancel
+                </button>
+              </Link>
               <button
-                id="wd-edit-quiz-cancel"
-                className="btn btn-secondary btn-outline-secondary me-1"
-                type="button"
+                id="wd-edit-quiz-save"
+                className="btn btn-danger me-1"
+                type="submit"
               >
-                Cancel
+                Save
               </button>
-            </Link>
-            <button
-              id="wd-edit-quiz-save"
-              className="btn btn-danger me-1"
-              type="submit"
-            >
-              Save
-            </button>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div>
+            <span>
+              <button
+                id="wd-edit-quiz"
+                className="btn btn-primary me-1"
+                type="button"
+                onClick={() => setEditing(true)}
+              >
+                Edit
+              </button>
+            </span>
+          </div>
+        )}
       </form>
     </div>
   );

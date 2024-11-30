@@ -89,31 +89,33 @@ export default function Quiz() {
                       {quiz.title}
                     </a>
                     <br />
-                    {(() => {
-                      const now = new Date();
-                      const availableFrom = new Date(quiz.availableFrom);
-                      const availableUntil = new Date(quiz.availableUntil);
+                    <span className="fs-6">
+                      {(() => {
+                        const now = new Date();
+                        const availableFrom = new Date(quiz.availableFrom);
+                        const availableUntil = new Date(quiz.availableUntil);
 
-                      if (now < availableFrom) {
-                        return (
-                          <>
-                            <b>Not available until </b>
-                            {formatDate(quiz.availableFrom)}
-                          </>
-                        );
-                      } else if (
-                        now >= availableFrom &&
-                        now <= availableUntil
-                      ) {
-                        return <b className="text-success">Available</b>;
-                      } else {
-                        return <b className="text-danger">Closed</b>;
-                      }
-                    })()}
-                    {" | "}
-                    <b>Due</b> {formatDate(quiz.dueDate)} | {quiz.points} pts |{" "}
-                    {quiz.numberOfQuestions ? quiz.numberOfQuestions : 0}{" "}
-                    Questions
+                        if (now < availableFrom) {
+                          return (
+                            <>
+                              <b>Not available until </b>
+                              {formatDate(quiz.availableFrom)}
+                            </>
+                          );
+                        } else if (
+                          now >= availableFrom &&
+                          now <= availableUntil
+                        ) {
+                          return <b className="text-success">Available</b>;
+                        } else {
+                          return <b className="text-danger">Closed</b>;
+                        }
+                      })()}
+                      {" | "}
+                      <b>Due</b> {formatDate(quiz.dueDate)} | {quiz.points} Pts
+                      | {quiz.numberOfQuestions ? quiz.numberOfQuestions : 0}{" "}
+                      Questions | -----10000000 Score
+                    </span>
                   </span>
                   {currentUser.role === "FACULTY" && (
                     <span className="d-flex ms-auto position-relative">

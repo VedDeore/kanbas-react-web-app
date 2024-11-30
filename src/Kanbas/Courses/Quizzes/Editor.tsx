@@ -25,7 +25,6 @@ export default function QuizEditor() {
   const { quizzes } = useSelector((state: any) => state.quizzesReducer);
   const [quiz, setQuiz] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isTimeLimitEnabled, setIsTimeLimitEnabled] = useState(false);
   const [activeTab, setActiveTab] = useState("details");
   const [questions, setAllQuestions] = useState<any[]>([]);
   const [currentId, setCurrentId] = useState(0);
@@ -131,7 +130,12 @@ export default function QuizEditor() {
       }
       dispatch(addQuiz({ ...quiz, course: cid }));
     }
-    navigate(`/Kanbas/Courses/${cid}/Quizzes`);
+    if (isPublish) {
+      navigate(`/Kanbas/Courses/${cid}/Quizzes`);
+    }
+    const quizzesData = await coursesClient.findQuizzesForCourse(cid as string);
+    const lastQuiz = quizzesData[quizzesData.length - 1];
+    navigate(`/Kanbas/Courses/${cid}/Quizzes/${lastQuiz._id}/QuizDetails`);
   };
 
   const handleCancel = () => {
@@ -258,7 +262,7 @@ export default function QuizEditor() {
           </div>
 
           <div className="mb-3">
-            Options
+            <span className="fw-bold">Options</span>
             <div className="form-check mt-3">
               <input
                 className="form-check-input"
@@ -274,38 +278,28 @@ export default function QuizEditor() {
                 Shuffle Options
               </label>
             </div>
-            <div className="form-check mt-3">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                id="timeLimit"
-                checked={isTimeLimitEnabled}
-                onChange={(e) => setIsTimeLimitEnabled(e.target.checked)}
-                disabled={currentUser.role !== "FACULTY"}
-              />
-              <label className="form-check-label" htmlFor="timeLimit">
-                Time Limit
-              </label>
+            <div className="mt-3 d-flex align-items-center">
+              <span className="me-2">Time Limit:</span>
               <input
                 id="timeLimitValue"
-                className="d-flex col-sm-3 form-control me-2"
+                className="form-control me-2"
+                style={{ width: "80px" }}
                 type="number"
                 value={quiz.timeLimit}
                 onChange={(e) => {
                   const newValue = parseInt(e.target.value);
                   setQuiz({ ...quiz, timeLimit: newValue });
                 }}
-                disabled={!isTimeLimitEnabled}
                 required
                 readOnly={currentUser.role !== "FACULTY"}
               />
-              <span>minutes</span>
+              <span>Minutes</span>
             </div>
           </div>
 
-          <div className="form-check">
+          <div className="d-flex align-items-center form-check">
             <input
-              className="form-check-input"
+              className="form-check-input me-2"
               type="checkbox"
               id="multipleAttempts"
               checked={quiz.multipleAttempts}
@@ -314,12 +308,13 @@ export default function QuizEditor() {
               }
               disabled={currentUser.role !== "FACULTY"}
             />
-            <label className="form-check-label" htmlFor="multipleAttempts">
+            <label className="form-check-label me-2" htmlFor="multipleAttempts">
               Multiple Attempts
             </label>
             <input
               id="multipleAttemptsValue"
               className="form-control me-2"
+              style={{ width: "80px" }}
               type="number"
               value={quiz.multipleAttemptsCount}
               onChange={(e) =>
@@ -330,7 +325,9 @@ export default function QuizEditor() {
               readOnly={currentUser.role !== "FACULTY"}
               min={2}
             />
-            <span>attempts</span>
+            <span>
+              {quiz.multipleAttemptsCount <= 1 ? "Attempt" : "Attempts"}
+            </span>
           </div>
 
           <div className="form-check mt-3 mb-3">
@@ -345,7 +342,7 @@ export default function QuizEditor() {
               disabled={currentUser.role !== "FACULTY"}
             />
             <label className="form-check-label" htmlFor="correct-answers">
-              Show correct answers
+              Show correct answers after all attempts are completed
             </label>
           </div>
 
@@ -364,26 +361,6 @@ export default function QuizEditor() {
 
           <div className="row mb-3">
             <div className="col-md-4">
-              <label htmlFor="webcamGroup">
-                <b>Webcam Required</b>
-              </label>
-              <select
-                id="webcamGroup"
-                className="form-select"
-                value={quiz.webcamRequired ? "Yes" : "No"}
-                onChange={(e) =>
-                  setQuiz({
-                    ...quiz,
-                    webcamRequired: e.target.value === "Yes",
-                  })
-                }
-                disabled={currentUser.role !== "FACULTY"}
-              >
-                <option value="No">No</option>
-                <option value="Yes">Yes</option>
-              </select>
-            </div>
-            <div className="col-md-4">
               <label htmlFor="one-question">
                 <b>One question at a time</b>
               </label>
@@ -401,6 +378,26 @@ export default function QuizEditor() {
               >
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
+              </select>
+            </div>
+            <div className="col-md-4">
+              <label htmlFor="webcamGroup">
+                <b>Webcam Required</b>
+              </label>
+              <select
+                id="webcamGroup"
+                className="form-select"
+                value={quiz.webcamRequired ? "Yes" : "No"}
+                onChange={(e) =>
+                  setQuiz({
+                    ...quiz,
+                    webcamRequired: e.target.value === "Yes",
+                  })
+                }
+                disabled={currentUser.role !== "FACULTY"}
+              >
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
               </select>
             </div>
 
@@ -428,18 +425,9 @@ export default function QuizEditor() {
           <br></br>
           <div className="card mb-3">
             <div className="card-body">
-              <label htmlFor="wd-assign-to" className="form-label">
-                <b>Assign to</b>
-              </label>
-              <div className="d-flex align-items-center border border-gray rounded">
-                <span className="border border-gray bg-light rounded p-2 m-2">
-                  Everyone X
-                </span>
-              </div>
-
               <div className="mb-3">
                 <label htmlFor="wd-due-date" className="form-label">
-                  <b> Due</b>
+                  <b> Due Date</b>
                 </label>
                 <input
                   type="datetime-local"
@@ -474,7 +462,7 @@ export default function QuizEditor() {
 
                 <div className="col-md-6">
                   <label htmlFor="wd-available-until" className="form-label">
-                    <b>Until</b>
+                    <b>Available Until</b>
                   </label>
                   <input
                     type="datetime-local"

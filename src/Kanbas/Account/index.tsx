@@ -10,44 +10,40 @@ export default function Account() {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
 
   return (
-    <div id="wd-account-screen">
-      <table>
-        <tr>
-          <td valign="top">
-            <AccountNavigation />
-          </td>
-          <td valign="top">
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Navigate
-                    to={
-                      currentUser
-                        ? "/Kanbas/Account/Profile"
-                        : "/Kanbas/Account/Signin"
-                    }
-                  />
+    <div
+      id="wd-account-screen"
+      className="d-flex justify-content-center align-items-center vh-100"
+    >
+      <div>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Navigate
+                to={
+                  currentUser
+                    ? "/Kanbas/Account/Profile"
+                    : "/Kanbas/Account/Signin"
                 }
               />
-              <Route path="/Signin" element={<Signin />} />
-              <Route path="/Profile" element={<Profile />} />
-              <Route path="/Signup" element={<Signup />} />
-              <Route
-                path="/Users/*"
-                element={
-                  <UsersRoute>
-                    <Routes>
-                      <Route path="" element={<Users />} />
-                      <Route path=":uid" element={<Users />} />
-                    </Routes>
-                  </UsersRoute>
-                }
-              />
-            </Routes>
-          </td>
-        </tr>
-      </table>
+            }
+          />
+          <Route path="/Signin" element={<Signin />} />
+          <Route path="/Profile" element={<Profile />} />
+          <Route path="/Signup" element={<Signup />} />
+          <Route
+            path="/Users/*"
+            element={
+              <UsersRoute>
+                <Routes>
+                  <Route path="" element={<Users />} />
+                  <Route path=":uid" element={<Users />} />
+                </Routes>
+              </UsersRoute>
+            }
+          />
+        </Routes>
+      </div>
     </div>
   );
 }

@@ -12,6 +12,7 @@ import { IoEllipsisVertical } from "react-icons/io5";
 import { FaPencil, FaTrash } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import * as quizzesClient from "./client";
+import * as usersClient from "../../Account/client";
 import { deleteQuiz } from "./reducer";
 import { FaCheckCircle, FaCircle } from "react-icons/fa";
 
@@ -19,7 +20,9 @@ export default function Quiz() {
   const { cid } = useParams();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { quizzes } = useSelector((state: any) => state.quizzesReducer);
-
+  const [showModal, setShowModal] = useState(false);
+  const [currentQuizId, setCurrentQuizId] = useState<any>(null);
+  const [studentGrade, setStudentGrade] = useState<any>({ grade: 0 });
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
   const dispatch = useDispatch();
@@ -35,7 +38,30 @@ export default function Quiz() {
 
   useEffect(() => {
     fetchQuizzes();
-  }, [quizzes]);
+  }, [quizzes.length]);
+
+  useEffect(() => {
+    const fetchGrades = async () => {
+      const gradesMap: Record<string, number | null> = {};
+
+      for (const quiz of quizzes) {
+        try {
+          const gradeResponse = await usersClient.getGrades(
+            currentUser._id,
+            quiz._id
+          );
+          gradesMap[quiz._id] = gradeResponse ? gradeResponse.grade : null;
+        } catch (error) {
+          console.error(`Failed to fetch grade for quiz ${quiz._id}`, error);
+          gradesMap[quiz._id] = null;
+        }
+      }
+
+      setStudentGrade(gradesMap);
+    };
+
+    fetchGrades();
+  }, [quizzes, currentUser, usersClient]);
 
   const handleMenuClick = (quizId: string) => {
     setActiveMenu((prev) => (prev === quizId ? null : quizId));
@@ -44,6 +70,7 @@ export default function Quiz() {
   const handleDelete = async (quizId: string) => {
     await quizzesClient.deleteQuiz(quizId);
     dispatch(deleteQuiz(quizId));
+    setShowModal(false);
   };
 
   const handlePublishToggle = async (isPublished: boolean, quizId: string) => {
@@ -112,9 +139,14 @@ export default function Quiz() {
                         }
                       })()}
                       {" | "}
-                      <b>Due</b> {formatDate(quiz.dueDate)} | {quiz.points} Pts
-                      | {quiz.numberOfQuestions ? quiz.numberOfQuestions : 0}{" "}
-                      Questions | -----10000000 Score
+                      <b>Due Date</b> {formatDate(quiz.dueDate)} | {quiz.points}{" "}
+                      Pts |{" "}
+                      {quiz.numberOfQuestions ? quiz.numberOfQuestions : 0}{" "}
+                      Questions{" "}
+                      {studentGrade[quiz._id] &&
+                        studentGrade[quiz._id] !== undefined && (
+                          <>| Your Score: {studentGrade[quiz._id]}</>
+                        )}
                     </span>
                   </span>
                   {currentUser.role === "FACULTY" && (
@@ -154,12 +186,58 @@ export default function Quiz() {
                             </button>
                           </Link>
                           <button
-                            onClick={() => handleDelete(quiz._id)}
+                            onClick={() => setShowModal(true)}
                             className="dropdown-item"
                           >
                             <FaTrash className="me-3" />
                             Delete
                           </button>
+                          <div
+                            className={`modal ${showModal ? "show" : ""}`}
+                            style={{ display: showModal ? "block" : "none" }}
+                            tabIndex={-1}
+                            role="dialog"
+                          >
+                            <div className="modal-dialog">
+                              <div className="modal-content">
+                                <div className="modal-header">
+                                  <h1
+                                    className="modal-title fs-5"
+                                    id="staticBackdropLabel"
+                                  >
+                                    Delete Quiz
+                                  </h1>
+                                </div>
+                                <div className="modal-body">
+                                  <p>
+                                    Are you sure you want to remove this quiz?
+                                  </p>
+                                </div>
+                                <div className="modal-footer">
+                                  <button
+                                    type="button"
+                                    className="btn btn-secondary"
+                                    data-bs-dismiss="modal"
+                                    onClick={() => setShowModal(false)}
+                                  >
+                                    Cancel
+                                  </button>
+                                  <button
+                                    onClick={() => handleDelete(quiz._id)}
+                                    type="button"
+                                    data-bs-dismiss="modal"
+                                    className="btn btn-danger"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          {showModal && (
+                            <div className="modal-backdrop fade show" />
+                          )}
+
                           <button
                             onClick={() =>
                               handlePublishToggle(quiz.published, quiz._id)
@@ -190,20 +268,6 @@ export default function Quiz() {
                             )}
                             {quiz.published ? "Unpublish" : "Publish"}
                           </button>
-                          {/* <button
-                            onClick={() => handleCopy(quiz._id)}
-                            className="dropdown-item"
-                          >
-                            <MdOutlineAssignment className="me-3" />
-                            Copy
-                          </button>
-                          <button
-                            onClick={handleSort}
-                            className="dropdown-item"
-                          >
-                            <FaSort className="me-3" />
-                            Sort
-                          </button> */}
                         </ul>
                       )}
                     </span>

@@ -8,16 +8,142 @@ import { IoMdArrowDropright } from "react-icons/io";
 import { PiArrowFatRightLight } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import * as coursesClient from "../client";
 import { setQuestions, setQuizzes } from "./reducer";
 import * as quizzesClient from "./client";
+import * as usersClient from "../../Account/client";
+import { addResponse, updateResponse } from "./Responses/reducer";
 
 export default function Preview() {
+  const navigate = useNavigate();
+  const pathname = useLocation().pathname;
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { cid, qid } = useParams();
   const [quiz, setQuiz] = useState<any>(null);
   const [questions, setAllQuestions] = useState<any>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [attempts, setAttempts] = useState<Number>(0);
+  const [responses, setResponses] = useState<string[]>([]);
+  let existingResponse: any = null;
+
+  const handleRadioChange = (value: string) => {
+    const updatedResponses = [...responses];
+    updatedResponses[currentQuestionIndex] = value;
+    setResponses(updatedResponses);
+  };
+
+  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const updatedResponses = [...responses];
+    updatedResponses[currentQuestionIndex] = e.target.value;
+    setResponses(updatedResponses);
+  };
+
+  const handleSubmit = async () => {
+    if (!cid || !qid) return;
+
+    let totalGrade = 0;
+    const newResponse = {
+      user: currentUser._id,
+      quiz: qid,
+      grade: 0,
+      attempts: 1,
+
+      questions: responses.map((response, index) => {
+        const question = questions[index];
+        let questionPoints = 0;
+
+        if (question.type === "MULTIPLE") {
+          const correctChoice = question.choices.find(
+            (choice: any) => choice.correct === true
+          );
+          if (response === correctChoice.answer) {
+            questionPoints = question.points;
+          }
+        }
+
+        if (question.type === "TRUEFALSE") {
+          const correctChoice = question.choices.find(
+            (choice: any) => choice.correct === true
+          );
+          if (response === correctChoice.answer) {
+            questionPoints = question.points;
+          }
+        }
+
+        if (question.type === "FILLIN") {
+          const correctChoice = question.choices.find(
+            (choice: any) => choice.correct === true
+          );
+          if (
+            response.trim().toLowerCase() ===
+            correctChoice.answer.trim().toLowerCase()
+          ) {
+            questionPoints = question.points;
+          }
+        }
+        totalGrade += questionPoints;
+
+        return {
+          question: question._id,
+          answer: response,
+          points: questionPoints,
+        };
+      }),
+    };
+    newResponse.grade = totalGrade;
+
+    try {
+      existingResponse = await usersClient.getGrades(currentUser._id, qid);
+
+      if (existingResponse !== null) {
+        console.log("existingResponse", existingResponse);
+        let attempts = existingResponse.attempts;
+        newResponse.attempts = attempts + 1;
+        existingResponse = await quizzesClient.updateResponse(
+          currentUser,
+          quiz,
+          newResponse
+        );
+        dispatch(updateResponse(existingResponse));
+      } else {
+        existingResponse = await usersClient.createGrades(
+          currentUser._id,
+          qid,
+          newResponse
+        );
+        dispatch(addResponse(existingResponse));
+      }
+      existingResponse.attempts = existingResponse.attempts + 1;
+      navigate(`/Kanbas/Courses/${cid}/Quizzes/${qid}/QuizDetails`);
+    } catch (error) {
+      console.error("Error saving or updating response for quiz: ", error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchResponses = async () => {
+      if (pathname === `/Kanbas/Courses/${cid}/Quizzes/${qid}/Responses`) {
+        try {
+          const response = await usersClient.getGrades(
+            currentUser._id,
+            qid as string
+          );
+          if (response) {
+            setResponses(
+              response.questions.map((question: any) => question.answer)
+            );
+            setAttempts(response.attempts);
+          } else {
+            navigate(`/Kanbas/Courses/${cid}/Quizzes/${qid}/QuizDetails`);
+          }
+        } catch (error) {
+          console.error("Error fetching responses: ", error);
+        }
+      }
+    };
+    fetchResponses();
+  }, []);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -29,7 +155,7 @@ export default function Preview() {
         setAllQuestions(questions);
         dispatch(setQuestions(questions));
       } catch (error) {
-        console.error("Error fetching questions:", error);
+        console.error("Error fetching questions: ", error);
       }
     };
     fetchQuestions();
@@ -47,6 +173,7 @@ export default function Preview() {
       console.error("Error fetching quizzes:", error);
     }
   };
+
   useEffect(() => {
     if (!quiz) {
       fetchQuizzes();
@@ -101,7 +228,7 @@ export default function Preview() {
         >
           <div className="d-flex align-items-center">
             <IoMdInformationCircleOutline className="me-2" />
-            This is a preview of the published version of the quiz.
+            This is a preview of the quiz.
           </div>
         </div>
       )}
@@ -111,7 +238,7 @@ export default function Preview() {
       <h3 className="row mb-3 fw-bold">Quiz Instructions</h3>
       <hr />
       {questions.length === 0 ? (
-        <p>No questions available for this quiz.</p>
+        <span className="fw-bold">No questions available for this quiz.</span>
       ) : (
         <>
           <div className="position-relative">
@@ -125,7 +252,7 @@ export default function Preview() {
                   Question {currentQuestionIndex + 1}
                 </div>
                 <div className="col-6 text-end fs-6">
-                  {questions[currentQuestionIndex].points}
+                  Points: {questions[currentQuestionIndex].points}
                 </div>
               </div>
               <div className="row mb-2">
@@ -149,6 +276,15 @@ export default function Preview() {
                             className="form-check-input"
                             name={`multiple-${currentQuestionIndex}`}
                             id={`choice-${index}`}
+                            value={choice.answer}
+                            onChange={() => handleRadioChange(choice.answer)}
+                            checked={
+                              responses[currentQuestionIndex] === choice.answer
+                            }
+                            disabled={
+                              responses !== undefined &&
+                              pathname.includes("Responses")
+                            }
                           />
                           <label
                             htmlFor={`choice-${index}`}
@@ -169,6 +305,12 @@ export default function Preview() {
                       name={`trueFalse-${currentQuestionIndex}`}
                       id={`true-${currentQuestionIndex}`}
                       value="True"
+                      onChange={() => handleRadioChange("True")}
+                      checked={responses[currentQuestionIndex] === "True"}
+                      disabled={
+                        responses !== undefined &&
+                        pathname.includes("Responses")
+                      }
                     />
                     <label
                       htmlFor={`true-${currentQuestionIndex}`}
@@ -182,9 +324,18 @@ export default function Preview() {
                       className="form-check-input me-2"
                       name={`trueFalse-${currentQuestionIndex}`}
                       value="False"
+                      onChange={() => handleRadioChange("False")}
+                      checked={responses[currentQuestionIndex] === "False"}
                       id={`false-${currentQuestionIndex}`}
+                      disabled={
+                        responses !== undefined &&
+                        pathname.includes("Responses")
+                      }
                     />
-                    <label htmlFor={`false-${currentQuestionIndex}`}>
+                    <label
+                      htmlFor={`false-${currentQuestionIndex}`}
+                      className="form-check-label"
+                    >
                       False
                     </label>
                   </div>
@@ -196,6 +347,12 @@ export default function Preview() {
                       className="form-control"
                       placeholder="Enter your answer here"
                       name={`fillIn-${currentQuestionIndex}`}
+                      value={responses[currentQuestionIndex] || ""}
+                      onChange={handleTextChange}
+                      disabled={
+                        responses !== undefined &&
+                        pathname.includes("Responses")
+                      }
                     />
                   </div>
                 )}
@@ -205,7 +362,9 @@ export default function Preview() {
           <div className="container-fluid">
             <div className="d-flex align-items-center justify-content-between mb-3 me-2">
               <button
-                className="d-flex align-items-center btn btn-secondary"
+                className={`d-flex align-items-center btn ${
+                  currentQuestionIndex === 0 ? "btn-secondary" : "btn-primary"
+                }`}
                 onClick={handlePrevious}
                 disabled={currentQuestionIndex === 0}
               >
@@ -213,7 +372,11 @@ export default function Preview() {
                 Previous
               </button>
               <button
-                className="d-flex align-items-center btn btn-secondary"
+                className={`d-flex align-items-center btn ${
+                  currentQuestionIndex === questions.length - 1
+                    ? "btn-secondary"
+                    : "btn-primary"
+                }`}
                 onClick={handleNext}
                 disabled={currentQuestionIndex === questions.length - 1}
               >
@@ -222,13 +385,59 @@ export default function Preview() {
               </button>
             </div>
           </div>
-          <div className="d-flex border justify-content-end mb-3 p-3 rounded">
-            <button className="d-flex align-items-center btn btn-secondary">
-              <span>Submit Quiz</span>
-            </button>
-          </div>
+
+          {pathname.includes("Responses") && (
+            <div className="d-flex  flex-column justify-content-center align-items-center mb-3 p-3 border rounded">
+              <div>
+                {questions[currentQuestionIndex]?.choices.some(
+                  (choice: any) =>
+                    choice.correct &&
+                    choice.answer === responses[currentQuestionIndex]
+                ) ? (
+                  <div className="fs-5 fw-bold p-3 rounded bg-success-subtle text-success border border-success">
+                    Your answer is correct.
+                  </div>
+                ) : (
+                  <div className="fs-5 fw-bold p-3 rounded bg-danger-subtle text-danger border border-danger">
+                    Your answer is incorrect.
+                  </div>
+                )}
+              </div>
+              {attempts === quiz.multipleAttemptsCount &&
+                quiz.showCorrectAnswers === true && (
+                  <div className="mt-3">
+                    <div className="fw-bold">
+                      Correct answer/s for this question:{" "}
+                      <span className="text-success">
+                        {questions[currentQuestionIndex]?.choices
+                          .filter((choice: any) => choice.correct)
+                          .map((choice: any, index: number) => choice.answer)
+                          .join(", ")}
+                      </span>
+                    </div>
+                  </div>
+                )}
+            </div>
+          )}
         </>
       )}
+      <div className="d-flex border justify-content-end mb-3 p-3 rounded">
+        {pathname === `/Kanbas/Courses/${cid}/Quizzes/${qid}/Responses` ? (
+          <Link
+            to={`/Kanbas/Courses/${cid}/Quizzes/${qid}/QuizDetails`}
+            className="btn btn-danger ms-2"
+          >
+            Back to Quiz
+          </Link>
+        ) : (
+          <button
+            className="d-flex align-items-center btn btn-danger"
+            onClick={handleSubmit}
+          >
+            <span>Submit Quiz</span>
+          </button>
+        )}
+      </div>
 
       {currentUser.role === "FACULTY" && (
         <Link

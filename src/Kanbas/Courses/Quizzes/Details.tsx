@@ -1,16 +1,21 @@
-import { Link, useParams, useLocation } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as coursesClient from "../client";
-
+import * as quizzesClient from "./client";
+import * as usersClient from "../../Account/client";
 import { FaPencil } from "react-icons/fa6";
 import { setQuizzes } from "./reducer";
 
 export default function Details() {
   const { cid, qid } = useParams();
-  // const { quizzes } = useSelector((state: any) => state.quizzesReducer);
   const [quiz, setQuiz] = useState<any>(null);
   const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const [studentGrade, setStudentGrade] = useState<any>(null);
+  const [currentAttempt, setCurrentAttempt] = useState<number>(0);
+  const [totalPossibleScore, setTotalPossibleScore] = useState<number>(0);
+  const navigate = useNavigate();
+
   const formatDate = (dateString: Date) => {
     const date = new Date(dateString);
     const options: Intl.DateTimeFormatOptions = {
@@ -22,6 +27,21 @@ export default function Details() {
       timeZone: "UTC",
     };
     return date.toLocaleString("en-US", options);
+  };
+
+  const fetchStudentGrade = async () => {
+    try {
+      const gradeResponse = await usersClient.getGrades(
+        currentUser._id,
+        qid as String
+      );
+      if (gradeResponse) {
+        setStudentGrade(gradeResponse.grade);
+        setCurrentAttempt(gradeResponse.attempts);
+      }
+    } catch (error) {
+      console.error("Error fetching student grade:", error);
+    }
   };
 
   const dispatch = useDispatch();
@@ -37,15 +57,39 @@ export default function Details() {
       console.error("Error fetching quizzes:", error);
     }
   };
+
+  const fetchTotalPossibleScore = async () => {
+    try {
+      const questions = await quizzesClient.findQuestionsForQuiz(qid as string);
+      const totalScore = questions.reduce(
+        (sum: number, question: any) => sum + question.points,
+        0
+      );
+      setTotalPossibleScore(totalScore);
+    } catch (error) {
+      console.error("Error fetching total possible score:", error);
+    }
+  };
+
   useEffect(() => {
     if (!quiz) {
       fetchQuizzes();
+      fetchStudentGrade();
+      fetchTotalPossibleScore();
     }
   }, [cid, qid]);
 
   if (!quiz) {
     return <p>Loading quiz data...</p>;
   }
+
+  const handleAttempts = () => {
+    if (currentAttempt < quiz.multipleAttemptsCount) {
+      navigate(`/Kanbas/Courses/${cid}/Quizzes/${qid}/Preview`);
+    } else {
+      alert("You have already attempted the quiz maximum number of times");
+    }
+  };
 
   return (
     <div className="container mt-4">
@@ -63,8 +107,22 @@ export default function Details() {
             </Link>
           </>
         ) : (
-          <Link to={`/Kanbas/Courses/${cid}/Quizzes/${qid}/Preview`}>
-            <button className="btn btn-danger">Take Quiz</button>
+          <>
+            {currentAttempt < quiz.multipleAttemptsCount && (
+              <button className="btn btn-danger" onClick={handleAttempts}>
+                Take Quiz
+              </button>
+            )}
+          </>
+        )}
+        {studentGrade != null && (
+          <Link
+            to={`/Kanbas/Courses/${cid}/Quizzes/${qid}/Responses`}
+            state={{
+              isPreview: true,
+            }}
+          >
+            <button className="ms-2 btn btn-success">Your Responses</button>
           </Link>
         )}
       </div>
@@ -96,7 +154,18 @@ export default function Details() {
                   {quiz.numberOfQuestions ? quiz.numberOfQuestions : 0}
                 </div>
               </div>
-              {currentUser.role === "FACULTY" && (
+              <div className="row mb-3">
+                <div className="col-4 text-end fw-bold">Multiple Attempts</div>
+                <div className="col-8">
+                  {quiz.multipleAttempts ? "Yes" : "No"}
+                </div>
+              </div>
+              <div className="row mb-3">
+                <div className="col-4 text-end fw-bold">Number of Attempts</div>
+                <div className="col-8">{quiz.multipleAttemptsCount}</div>
+              </div>
+
+              {currentUser.role === "FACULTY" ? (
                 <>
                   <div className="row mb-3">
                     <div className="col-4 text-end fw-bold">
@@ -114,6 +183,11 @@ export default function Details() {
                     </div>
                   </div>
                 </>
+              ) : (
+                <div className="row mb-3">
+                  <div className="col-4 text-end fw-bold">Your Attempts</div>
+                  <div className="col-8">{currentAttempt}</div>
+                </div>
               )}
               <div className="row mb-3">
                 <div className="col-4 text-end fw-bold">Time Limit</div>
@@ -121,21 +195,6 @@ export default function Details() {
               </div>
               {currentUser.role === "FACULTY" && (
                 <>
-                  <div className="row mb-3">
-                    <div className="col-4 text-end fw-bold">
-                      Multiple Attempts
-                    </div>
-                    <div className="col-8">
-                      {quiz.multipleAttempts ? "Yes" : "No"}
-                    </div>
-                  </div>
-                  <div className="row mb-3">
-                    <div className="col-4 text-end fw-bold">
-                      Number of Attempts
-                    </div>
-                    <div className="col-8">{quiz.multipleAttemptsCount}</div>
-                  </div>
-
                   <div className="row mb-3">
                     <div className="col-4 text-end fw-bold">
                       Show Correct Answers
@@ -184,16 +243,14 @@ export default function Details() {
               <table className="table">
                 <thead>
                   <tr>
-                    <th>Due</th>
-                    {currentUser.role === "FACULTY" && <th>For</th>}
+                    <th>Due Date</th>
                     <th>Available from</th>
-                    <th>Until</th>
+                    <th>Available Until</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>{formatDate(quiz.dueDate)}</td>
-                    {currentUser.role === "FACULTY" && <td>Everyone</td>}
                     <td>{formatDate(quiz.availableFrom)}</td>
                     <td>{formatDate(quiz.availableUntil)}</td>
                   </tr>
@@ -201,6 +258,29 @@ export default function Details() {
               </table>
             </div>
           </div>
+          {currentAttempt > 0 && (
+            <div className="mb-4">
+              <h5 className="fw-bold mb-3 left-align">Attempt History</h5>
+              <table className="table table-borderless text-center">
+                <thead>
+                  <tr>
+                    <th>Attempt</th>
+                    <th>Time</th>
+                    <th>Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="fw-bold">LATEST</td>
+                    <td>20 minutes</td>
+                    <td>
+                      {studentGrade}/{totalPossibleScore}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       </div>
     </div>

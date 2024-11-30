@@ -88,3 +88,18 @@ export const createUser = async (user: any) => {
   const response = await axios.post(`${USERS_API}`, user);
   return response.data;
 };
+
+export const createGrades = async (user: any, quiz: any, grades: any) => {
+  const response = await axiosWithCredentials.post(
+    `${USERS_API}/${user._id}/quizzes/${quiz._id}`,
+    grades
+  );
+  return response.data;
+};
+
+export const getGrades = async (userId: String, qid: String) => {
+  const response = await axiosWithCredentials.get(
+    `${USERS_API}/${userId}/quizzes/${qid}`
+  );
+  return response.data;
+};

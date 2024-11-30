@@ -3,6 +3,7 @@ const axiosWithCredentials = axios.create({ withCredentials: true });
 const REMOTE_SERVER = process.env.REACT_APP_REMOTE_SERVER;
 const QUIZZES_API = `${REMOTE_SERVER}/api/quizzes`;
 const QUESTIONS_API = `${REMOTE_SERVER}/api/questions`;
+const USERS_API = `${REMOTE_SERVER}/api/users`;
 
 export const deleteQuiz = async (quizId: string) => {
   const response = await axiosWithCredentials.delete(
@@ -43,4 +44,21 @@ export const updateQuestion = async (question: any) => {
     question
   );
   return data;
+};
+
+export const updateResponse = async (user: any, quiz: any, response: any) => {
+  console.log("In update response", response);
+  const { data } = await axiosWithCredentials.put(
+    `${USERS_API}/${user._id}/quizzes/${quiz._id}`,
+    response
+  );
+  return data;
+};
+export const createGrades = async (user: any, quiz: any, grades: any) => {
+  console.log("In new grades", grades);
+  const response = await axiosWithCredentials.post(
+    `${USERS_API}/${user._id}/quizzes/${quiz._id}`,
+    grades
+  );
+  return response.data;
 };

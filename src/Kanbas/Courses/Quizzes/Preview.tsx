@@ -26,6 +26,8 @@ export default function Preview() {
   const [attempts, setAttempts] = useState<Number>(0);
   const [responses, setResponses] = useState<string[]>([]);
   let existingResponse: any = null;
+  const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
+  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
 
   const handleRadioChange = (value: string) => {
     const updatedResponses = [...responses];
@@ -48,6 +50,7 @@ export default function Preview() {
       quiz: qid,
       grade: 0,
       attempts: 1,
+      time: 0,
 
       questions: responses.map((response, index) => {
         const question = questions[index];
@@ -92,6 +95,7 @@ export default function Preview() {
       }),
     };
     newResponse.grade = totalGrade;
+    newResponse.time = quiz.timeLimit * 60 - (timeRemaining ?? 0);
 
     try {
       existingResponse = await usersClient.getGrades(currentUser._id, qid);
@@ -168,10 +172,32 @@ export default function Preview() {
         const currentQuiz = quizzes.find((quiz: any) => quiz._id === qid);
         setQuiz(currentQuiz);
         dispatch(setQuizzes(quizzes));
+        setTimeRemaining(currentQuiz?.timeLimit * 60);
       }
     } catch (error) {
       console.error("Error fetching quizzes:", error);
     }
+  };
+
+  useEffect(() => {
+    if (timeRemaining !== null && timeRemaining > 0) {
+      const interval = setInterval(() => {
+        setTimeRemaining((prev) => (prev !== null ? prev - 1 : null));
+      }, 1000);
+      setTimer(interval);
+
+      return () => clearInterval(interval);
+    }
+
+    if (timeRemaining === 0) {
+      handleSubmit();
+    }
+  }, [timeRemaining]);
+
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
   useEffect(() => {
@@ -214,8 +240,18 @@ export default function Preview() {
 
   return (
     <div id="wd-quiz" className="container-fluid">
-      <div className="fs-2 fw-bold row mb-3">
-        {quiz.title} <br />
+      <div className="d-flex justify-content-between">
+        <div className="fs-2 fw-bold row mb-3">
+          {quiz.title} <br />
+        </div>
+        <div className="fw-bold fs-5">
+          Time Remaining:{" "}
+          <span className="text-danger fw-bold">
+            {timeRemaining !== null
+              ? formatTime(timeRemaining)
+              : "Calculating..."}
+          </span>
+        </div>
       </div>
       {currentUser.role === "FACULTY" && (
         <div
@@ -232,10 +268,6 @@ export default function Preview() {
           </div>
         </div>
       )}
-      <div className="row mb-3">
-        Started: {formatDate(new Date(Date.now()))} <br />
-      </div>
-      <h3 className="row mb-3 fw-bold">Quiz Instructions</h3>
       <hr />
       {questions.length === 0 ? (
         <span className="fw-bold">No questions available for this quiz.</span>

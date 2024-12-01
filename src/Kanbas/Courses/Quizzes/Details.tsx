@@ -14,6 +14,7 @@ export default function Details() {
   const [studentGrade, setStudentGrade] = useState<any>(null);
   const [currentAttempt, setCurrentAttempt] = useState<number>(0);
   const [totalPossibleScore, setTotalPossibleScore] = useState<number>(0);
+  const [timeTaken, setTimeTaken] = useState<number>(0);
   const navigate = useNavigate();
 
   const formatDate = (dateString: Date) => {
@@ -38,6 +39,7 @@ export default function Details() {
       if (gradeResponse) {
         setStudentGrade(gradeResponse.grade);
         setCurrentAttempt(gradeResponse.attempts);
+        setTimeTaken(gradeResponse.time);
       }
     } catch (error) {
       console.error("Error fetching student grade:", error);
@@ -130,7 +132,7 @@ export default function Details() {
       <hr />
       <div className="row justify-content-center">
         <div className="col-md-8">
-          <div className="card">
+          <div className="card mb-3">
             <div className="card-header d-flex justify-content-between align-items-center">
               <h3 className="fw-bold mb-0">{quiz.title}</h3>
             </div>
@@ -259,8 +261,11 @@ export default function Details() {
             </div>
           </div>
           {currentAttempt > 0 && (
-            <div className="mb-4">
-              <h5 className="fw-bold mb-3 left-align">Attempt History</h5>
+            <div className="border rounded mb-4">
+              <h5 className="d-flex align-items-center justify-content-center fw-bold mt-3 mb-3">
+                Attempt History
+              </h5>
+              <hr />
               <table className="table table-borderless text-center">
                 <thead>
                   <tr>
@@ -272,7 +277,19 @@ export default function Details() {
                 <tbody>
                   <tr>
                     <td className="fw-bold">LATEST</td>
-                    <td>20 minutes</td>
+                    <td>
+                      {Math.floor(timeTaken / 60) > 0 &&
+                        `${Math.floor(timeTaken / 60)} Minute${
+                          Math.floor(timeTaken / 60) !== 1 ? "s" : ""
+                        }`}
+                      {Math.floor(timeTaken / 60) > 0 &&
+                        timeTaken % 60 > 0 &&
+                        " "}
+                      {timeTaken % 60 > 0 &&
+                        `${timeTaken % 60} Second${
+                          timeTaken % 60 !== 1 ? "s" : ""
+                        }`}
+                    </td>
                     <td>
                       {studentGrade}/{totalPossibleScore}
                     </td>

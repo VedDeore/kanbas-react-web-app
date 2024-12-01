@@ -16,6 +16,7 @@ const responsesSlice = createSlice({
         quiz: response.quiz,
         grade: response.grade,
         attempts: response.attempts,
+        time: response.time,
         questions: [],
       };
       state.responses = [...state.responses, newResponse] as any;

@@ -38,7 +38,7 @@ export default function Quiz() {
 
   useEffect(() => {
     fetchQuizzes();
-  }, [quizzes.length]);
+  }, [quizzes]);
 
   useEffect(() => {
     const fetchGrades = async () => {

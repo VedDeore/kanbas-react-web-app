@@ -82,14 +82,14 @@ export default function Modules() {
                   />
                 )}
               </div>
-              {currentUser.role === "FACULTY" ||
-                (currentUser.role === "ADMIN" && (
-                  <ModuleControlButtons
-                    moduleId={module._id}
-                    deleteModule={(moduleId) => removeModule(moduleId)}
-                    editModule={(moduleId) => dispatch(editModule(moduleId))}
-                  />
-                ))}
+              {(currentUser.role === "FACULTY" ||
+                currentUser.role === "ADMIN") && (
+                <ModuleControlButtons
+                  moduleId={module._id}
+                  deleteModule={(moduleId) => removeModule(moduleId)}
+                  editModule={(moduleId) => dispatch(editModule(moduleId))}
+                />
+              )}
             </div>
             {module.lessons && (
               <ul className="wd-lessons list-group rounded-0">
@@ -107,12 +107,12 @@ export default function Modules() {
                       >
                         {lesson.name}
                       </span>
-                      {currentUser.role === "FACULTY" ||
-                        (currentUser.role === "FACULTY" && (
-                          <span className="ms-auto">
-                            <LessonControlButtons />
-                          </span>
-                        ))}
+                      {(currentUser.role === "FACULTY" ||
+                        currentUser.role === "ADMIN") && (
+                        <span className="ms-auto">
+                          <LessonControlButtons />
+                        </span>
+                      )}
                     </div>
                   </li>
                 ))}

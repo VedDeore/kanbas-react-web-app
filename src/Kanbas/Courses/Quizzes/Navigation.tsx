@@ -13,7 +13,6 @@ export default function Navigation({
 
   return (
     <div className="d-flex mb-3">
-      <Link to={`/Kanbas/Courses/${cid}/Quizzes/details`}></Link>
       <button
         onClick={() => setActiveTab("details")}
         className={`border-0 py-2 ${

@@ -103,6 +103,7 @@ export default function Quiz() {
               <b>ASSIGNMENT QUIZZES</b>{" "}
             </div>
           </div>
+
           <ul className="wd-quiz-list list-group rounded-0">
             {quizzes.map((quiz: any) => (
               <li className="wd-quiz-list-item list-group-item p-3 ps-2">

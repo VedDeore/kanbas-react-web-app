@@ -71,7 +71,7 @@ export default function Dashboard({
             ? "Published Courses (" + courses.length + ")"
             : "Enrolled Courses (" + courses.length + ")"}
         </h2>
-        {currentUser.role === "STUDENT" && (
+        {currentUser.role !== "ADMIN" && (
           <button
             onClick={() => setEnrolling(!enrolling)}
             className="float-end btn btn-primary"
@@ -114,7 +114,7 @@ export default function Dashboard({
                       </p>
                       <div className="d-flex justify-content-between align-items-center mb-3">
                         <button className="btn btn-primary"> Go </button>
-                        {currentUser.role === "STUDENT" && enrolling && (
+                        {enrolling && (
                           <button
                             onClick={(event) => {
                               event.preventDefault();
@@ -127,31 +127,32 @@ export default function Dashboard({
                             {course.enrolled ? "Unenroll" : "Enroll"}
                           </button>
                         )}
-                        {(currentUser.role === "FACULTY" ||
-                          currentUser.role === "ADMIN") && (
-                          <span>
-                            <button
-                              onClick={(event) => {
-                                event.preventDefault();
-                                deleteCourse(course._id);
-                              }}
-                              className="btn btn-danger float-end"
-                              id="wd-delete-course-click"
-                            >
-                              Delete
-                            </button>
-                            <button
-                              id="wd-edit-course-click"
-                              onClick={(event) => {
-                                event.preventDefault();
-                                setCourse(course);
-                              }}
-                              className="btn btn-warning me-2 float-end"
-                            >
-                              Edit
-                            </button>
-                          </span>
-                        )}
+                        {!enrolling &&
+                          (currentUser.role === "ADMIN" ||
+                            currentUser.role === "FACULTY") && (
+                            <span>
+                              <button
+                                onClick={(event) => {
+                                  event.preventDefault();
+                                  deleteCourse(course._id);
+                                }}
+                                className="btn btn-danger float-end"
+                                id="wd-delete-course-click"
+                              >
+                                Delete
+                              </button>
+                              <button
+                                id="wd-edit-course-click"
+                                onClick={(event) => {
+                                  event.preventDefault();
+                                  setCourse(course);
+                                }}
+                                className="btn btn-warning me-2 float-end"
+                              >
+                                Edit
+                              </button>
+                            </span>
+                          )}
                       </div>
                     </div>
                   </Link>

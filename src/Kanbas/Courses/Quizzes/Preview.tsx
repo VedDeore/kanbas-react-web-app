@@ -51,6 +51,7 @@ export default function Preview() {
       grade: 0,
       attempts: 1,
       time: 0,
+      dateOfAttempt: new Date(),
 
       questions: responses.map((response, index) => {
         const question = questions[index];
@@ -101,7 +102,6 @@ export default function Preview() {
       existingResponse = await usersClient.getGrades(currentUser._id, qid);
 
       if (existingResponse !== null) {
-        console.log("existingResponse", existingResponse);
         let attempts = existingResponse.attempts;
         newResponse.attempts = attempts + 1;
         existingResponse = await quizzesClient.updateResponse(
@@ -189,7 +189,10 @@ export default function Preview() {
       return () => clearInterval(interval);
     }
 
-    if (timeRemaining === 0) {
+    if (
+      timeRemaining === 0 &&
+      pathname !== `/Kanbas/Courses/${cid}/Quizzes/${qid}/Responses`
+    ) {
       handleSubmit();
     }
   }, [timeRemaining]);
@@ -214,18 +217,6 @@ export default function Preview() {
     return <p>Loading questions...</p>;
   }
 
-  const formatDate = (dateString: Date) => {
-    const date = new Date(dateString);
-    const options: Intl.DateTimeFormatOptions = {
-      month: "short",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    };
-    return date.toLocaleString("en-US", options);
-  };
-
   const handleNext = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -244,14 +235,16 @@ export default function Preview() {
         <div className="fs-2 fw-bold row mb-3">
           {quiz.title} <br />
         </div>
-        <div className="fw-bold fs-5">
-          Time Remaining:{" "}
-          <span className="text-danger fw-bold">
-            {timeRemaining !== null
-              ? formatTime(timeRemaining)
-              : "Calculating..."}
-          </span>
-        </div>
+        {pathname !== `/Kanbas/Courses/${cid}/Quizzes/${qid}/Responses` && (
+          <div className="fw-bold fs-5">
+            Time Remaining:{" "}
+            <span className="text-danger fw-bold">
+              {timeRemaining !== null
+                ? formatTime(timeRemaining)
+                : "Calculating..."}
+            </span>
+          </div>
+        )}
       </div>
       {currentUser.role === "FACULTY" && (
         <div
@@ -435,7 +428,8 @@ export default function Preview() {
                   </div>
                 )}
               </div>
-              {attempts === quiz.multipleAttemptsCount &&
+              {(attempts === quiz.multipleAttemptsCount ||
+                currentUser.role === "FACULTY") &&
                 quiz.showCorrectAnswers === true && (
                   <div className="mt-3">
                     <div className="fw-bold">

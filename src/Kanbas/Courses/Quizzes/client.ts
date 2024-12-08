@@ -47,7 +47,6 @@ export const updateQuestion = async (question: any) => {
 };
 
 export const updateResponse = async (user: any, quiz: any, response: any) => {
-  console.log("In update response", response);
   const { data } = await axiosWithCredentials.put(
     `${USERS_API}/${user._id}/quizzes/${quiz._id}`,
     response

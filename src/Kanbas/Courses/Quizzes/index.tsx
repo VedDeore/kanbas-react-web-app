@@ -22,7 +22,7 @@ export default function Quiz() {
   const { quizzes } = useSelector((state: any) => state.quizzesReducer);
   const [showModal, setShowModal] = useState(false);
   const [currentQuizId, setCurrentQuizId] = useState<any>(null);
-  const [studentGrade, setStudentGrade] = useState<any>({ grade: 0 });
+  const [studentGrade, setStudentGrade] = useState<any>({ grade: null });
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
   const dispatch = useDispatch();
@@ -87,7 +87,7 @@ export default function Quiz() {
       hour: "2-digit",
       minute: "2-digit",
       hour12: true,
-      timeZone: "UTC",
+      // timeZone: "UTC",
     };
     return date.toLocaleString("en-US", options);
   };
@@ -117,34 +117,34 @@ export default function Quiz() {
                     </a>
                     <br />
                     <span className="fs-6">
-                      {(() => {
-                        const now = new Date();
-                        const availableFrom = new Date(quiz.availableFrom);
-                        const availableUntil = new Date(quiz.availableUntil);
+                      {currentUser.role === "STUDENT" &&
+                        (() => {
+                          const now = new Date();
+                          const availableFrom = new Date(quiz.availableFrom);
+                          const availableUntil = new Date(quiz.availableUntil);
 
-                        if (now < availableFrom) {
-                          return (
-                            <>
-                              <b>Not available until </b>
-                              {formatDate(quiz.availableFrom)}
-                            </>
-                          );
-                        } else if (
-                          now >= availableFrom &&
-                          now <= availableUntil
-                        ) {
-                          return <b className="text-success">Available</b>;
-                        } else {
-                          return <b className="text-danger">Closed</b>;
-                        }
-                      })()}
-                      {" | "}
+                          if (now < availableFrom) {
+                            return (
+                              <>
+                                <b>Not available until </b>
+                                {formatDate(quiz.availableFrom)} |
+                              </>
+                            );
+                          } else if (
+                            now >= availableFrom &&
+                            now <= availableUntil
+                          ) {
+                            return <b className="text-success">Available | </b>;
+                          } else {
+                            return <b className="text-danger">Closed | </b>;
+                          }
+                        })()}
                       <b>Due Date</b> {formatDate(quiz.dueDate)} | {quiz.points}{" "}
                       Pts |{" "}
                       {quiz.numberOfQuestions ? quiz.numberOfQuestions : 0}{" "}
                       Questions{" "}
-                      {studentGrade[quiz._id] &&
-                        studentGrade[quiz._id] !== undefined && (
+                      {currentUser.role === "STUDENT" &&
+                        studentGrade[quiz._id] !== null && (
                           <>| Your Score: {studentGrade[quiz._id]}</>
                         )}
                     </span>

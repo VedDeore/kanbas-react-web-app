@@ -146,7 +146,12 @@ export default function QuizEditor() {
   const formatDateForInput = (isoDate: any) => {
     if (!isoDate) return "";
     const date = new Date(isoDate);
-    return date.toISOString().slice(0, 16);
+    const localYear = date.getFullYear();
+    const localMonth = String(date.getMonth() + 1).padStart(2, "0");
+    const localDay = String(date.getDate()).padStart(2, "0");
+    const localHour = String(date.getHours()).padStart(2, "0");
+    const localMinute = String(date.getMinutes()).padStart(2, "0");
+    return `${localYear}-${localMonth}-${localDay}T${localHour}:${localMinute}`;
   };
 
   const formattedDueDate = formatDateForInput(

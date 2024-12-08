@@ -15,6 +15,7 @@ export default function Details() {
   const [currentAttempt, setCurrentAttempt] = useState<number>(0);
   const [totalPossibleScore, setTotalPossibleScore] = useState<number>(0);
   const [timeTaken, setTimeTaken] = useState<number>(0);
+  const [gradeResponse, setGradeResponse] = useState<any>(null);
   const navigate = useNavigate();
 
   const formatDate = (dateString: Date) => {
@@ -25,7 +26,6 @@ export default function Details() {
       hour: "2-digit",
       minute: "2-digit",
       hour12: true,
-      timeZone: "UTC",
     };
     return date.toLocaleString("en-US", options);
   };
@@ -36,6 +36,7 @@ export default function Details() {
         currentUser._id,
         qid as String
       );
+      setGradeResponse(gradeResponse);
       if (gradeResponse) {
         setStudentGrade(gradeResponse.grade);
         setCurrentAttempt(gradeResponse.attempts);
@@ -110,11 +111,15 @@ export default function Details() {
           </>
         ) : (
           <>
-            {currentAttempt < quiz.multipleAttemptsCount && (
-              <button className="btn btn-danger" onClick={handleAttempts}>
-                Take Quiz
-              </button>
-            )}
+            {currentAttempt < quiz.multipleAttemptsCount &&
+              new Date().toISOString() >= quiz.availableFrom &&
+              new Date().toISOString() <= quiz.availableUntil && (
+                <>
+                  <button className="btn btn-danger" onClick={handleAttempts}>
+                    Take Quiz
+                  </button>
+                </>
+              )}
           </>
         )}
         {studentGrade != null && (
@@ -124,11 +129,14 @@ export default function Details() {
               isPreview: true,
             }}
           >
-            <button className="ms-2 btn btn-success">Your Responses</button>
+            <button className="ms-2 btn btn-success">
+              {gradeResponse.attempts === quiz.multipleAttemptsCount
+                ? "See Correct Responses"
+                : "Your Responses"}
+            </button>
           </Link>
         )}
       </div>
-
       <hr />
       <div className="row justify-content-center">
         <div className="col-md-8">
@@ -269,14 +277,14 @@ export default function Details() {
               <table className="table table-borderless text-center">
                 <thead>
                   <tr>
-                    <th>Attempt</th>
+                    <th>Attempted On</th>
                     <th>Time</th>
                     <th>Score</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td className="fw-bold">LATEST</td>
+                    <td>{formatDate(gradeResponse.dateOfAttempt)}</td>
                     <td>
                       {Math.floor(timeTaken / 60) > 0 &&
                         `${Math.floor(timeTaken / 60)} Minute${

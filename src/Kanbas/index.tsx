@@ -10,6 +10,7 @@ import Session from "./Account/Session";
 import * as userClient from "./Account/client";
 import * as courseClient from "./Courses/client";
 import { useSelector } from "react-redux";
+import ProjectTeam from "./ProjectTeam";
 
 export default function Kanbas() {
   const initialCourseState = {
@@ -147,8 +148,7 @@ export default function Kanbas() {
                 </ProtectedRoute>
               }
             />
-            <Route path="/Calendar" element={<h1>Calendar</h1>} />
-            <Route path="/Inbox" element={<h1>Inbox</h1>} />
+            <Route path="/Team" element={<ProjectTeam />} />
           </Routes>
         </div>
       </div>

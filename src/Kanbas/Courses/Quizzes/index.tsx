@@ -37,10 +37,6 @@ export default function Quiz() {
   };
 
   useEffect(() => {
-    fetchQuizzes();
-  }, []);
-
-  useEffect(() => {
     const fetchGrades = async () => {
       const gradesMap: Record<string, number | null> = {};
 
@@ -71,11 +67,13 @@ export default function Quiz() {
     await quizzesClient.deleteQuiz(quizId);
     dispatch(deleteQuiz(quizId));
     setShowModal(false);
+    fetchQuizzes();
   };
 
   const handlePublishToggle = async (isPublished: boolean, quizId: string) => {
     const quiz = quizzes.find((quiz: any) => quiz._id === quizId);
     await quizzesClient.updateQuiz({ ...quiz, published: !isPublished });
+    fetchQuizzes();
   };
 
   const formatDate = (dateString: string) => {

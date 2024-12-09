@@ -38,7 +38,7 @@ export default function Quiz() {
 
   useEffect(() => {
     fetchQuizzes();
-  }, [quizzes]);
+  }, []);
 
   useEffect(() => {
     const fetchGrades = async () => {
@@ -61,7 +61,7 @@ export default function Quiz() {
     };
 
     fetchGrades();
-  }, [quizzes, currentUser, usersClient]);
+  }, []);
 
   const handleMenuClick = (quizId: string) => {
     setActiveMenu((prev) => (prev === quizId ? null : quizId));

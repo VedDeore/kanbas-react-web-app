@@ -81,8 +81,10 @@ export default function QuizEditor() {
                 availableFrom: null,
                 availableUntil: null,
                 published: false,
+                numberOfQuestions: 0,
               };
         setQuiz(initialQuiz);
+        console.log("Initial quiz: ", initialQuiz);
 
         // Fetch questions for the quiz
         if (qid !== "NewQuiz") {
@@ -99,7 +101,7 @@ export default function QuizEditor() {
       }
     };
     fetchData();
-  }, [quizzes, qid, cid, dispatch]);
+  }, []);
 
   const updateQuestionPoints = async (newPoints: number) => {
     setQuiz({ ...quiz, points: newPoints });

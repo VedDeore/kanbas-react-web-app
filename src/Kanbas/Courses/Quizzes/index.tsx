@@ -144,7 +144,7 @@ export default function Quiz() {
                       {quiz.numberOfQuestions ? quiz.numberOfQuestions : 0}{" "}
                       Questions{" "}
                       {currentUser.role === "STUDENT" &&
-                        studentGrade[quiz._id] !== null && (
+                        studentGrade[quiz._id] !== undefined && (
                           <>| Your Score: {studentGrade[quiz._id]}</>
                         )}
                     </span>

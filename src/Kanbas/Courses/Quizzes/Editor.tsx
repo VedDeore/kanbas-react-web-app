@@ -107,6 +107,17 @@ export default function QuizEditor() {
     setQuiz({ ...quiz, points: newPoints });
   };
 
+  const updateNoOfQuestions = async (
+    newTotalQuestions: number,
+    newPoints: number
+  ) => {
+    setQuiz({
+      ...quiz,
+      points: newPoints,
+      numberOfQuestions: newTotalQuestions,
+    });
+  };
+
   if (isLoading) {
     return <p>Loading quiz data...</p>;
   }
@@ -531,6 +542,7 @@ export default function QuizEditor() {
                   question={question}
                   quiz={quiz}
                   onPointsChange={updateQuestionPoints}
+                  onQuestionChange={updateNoOfQuestions}
                   onCanceled={handleCancel}
                   currentId={currentId}
                 />

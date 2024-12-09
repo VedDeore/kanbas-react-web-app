@@ -12,12 +12,14 @@ export default function QuestionMaker({
   question: initialQuestion,
   quiz,
   onPointsChange,
+  onQuestionChange,
   onCanceled,
   currentId,
 }: {
   question: any;
   quiz: any;
   onPointsChange: any;
+  onQuestionChange: any;
   onCanceled: any;
   currentId: any;
 }) {
@@ -117,20 +119,26 @@ export default function QuestionMaker({
     }
     console.log("First Formatted Question", formattedQuestion);
     if (initialQuestion.currentid == currentId) {
-      console.log("Question is empty");
       await quizzesClient.createQuestionForQuiz(
         qid as string,
         formattedQuestion
       );
       dispatch(addQuestion(formattedQuestion));
       const newPoints = currentQuiz.points + parseInt(formattedQuestion.points);
+      const questionsNumber = quiz.numberOfQuestions + 1;
       onPointsChange(newPoints);
+      onQuestionChange(questionsNumber, newPoints);
       await quizzesClient.updateQuiz({
         ...quiz,
         points: newPoints,
-        numberOfQuestions: quiz.numberOfQuestions + 1,
+        numberOfQuestions: questionsNumber,
       });
-      setCurrentQuiz({ ...currentQuiz, points: newPoints });
+      setCurrentQuiz({
+        ...currentQuiz,
+        points: newPoints,
+        numberOfQuestions: questionsNumber,
+      });
+      console.log(questionsNumber);
       initialQuestion.currentid = "";
     } else {
       console.log("Formatted Question", formattedQuestion);

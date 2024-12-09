@@ -37,6 +37,7 @@ export default function Quiz() {
   };
 
   useEffect(() => {
+    fetchQuizzes();
     const fetchGrades = async () => {
       const gradesMap: Record<string, number | null> = {};
 

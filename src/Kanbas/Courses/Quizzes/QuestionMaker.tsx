@@ -40,8 +40,10 @@ export default function QuestionMaker({
           { text: "True", isCorrect: false },
           { text: "False", isCorrect: false },
         ]);
-      } else {
+      } else if (questionType === "MULTIPLE") {
         setAnswers([...answers, { text: "", isCorrect: false }]);
+      } else {
+        setAnswers([...answers, { text: "", isCorrect: true }]);
       }
     }
   };
@@ -93,14 +95,26 @@ export default function QuestionMaker({
 
   const dispatch = useDispatch();
   const handleSave = async (e: any) => {
-    const formattedQuestion = {
-      ...question,
-      choices: answers.map((answer: any) => ({
-        ...answer,
-        answer: answer.text.trim(),
-        correct: answer.isCorrect,
-      })),
-    };
+    let formattedQuestion;
+    if (questionType === "FILLIN") {
+      formattedQuestion = {
+        ...question,
+        choices: answers.map((answer: any) => ({
+          ...answer,
+          answer: answer.text.trim(),
+          correct: true,
+        })),
+      };
+    } else {
+      formattedQuestion = {
+        ...question,
+        choices: answers.map((answer: any) => ({
+          ...answer,
+          answer: answer.text.trim(),
+          correct: answer.isCorrect,
+        })),
+      };
+    }
     console.log("First Formatted Question", formattedQuestion);
     if (initialQuestion.currentid == currentId) {
       console.log("Question is empty");

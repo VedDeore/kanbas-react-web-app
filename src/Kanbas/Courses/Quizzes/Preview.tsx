@@ -417,7 +417,8 @@ export default function Preview() {
                 {questions[currentQuestionIndex]?.choices.some(
                   (choice: any) =>
                     choice.correct &&
-                    choice.answer === responses[currentQuestionIndex]
+                    choice.answer.toLowerCase() ===
+                      responses[currentQuestionIndex]?.toLowerCase()
                 ) ? (
                   <div className="fs-5 fw-bold p-3 rounded bg-success-subtle text-success border border-success">
                     Your answer is correct.

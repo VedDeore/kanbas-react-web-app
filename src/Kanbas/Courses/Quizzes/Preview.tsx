@@ -76,13 +76,14 @@ export default function Preview() {
         }
 
         if (question.type === "FILLIN") {
-          const correctChoice = question.choices.find(
-            (choice: any) => choice.correct === true
+          const isCorrect = question.choices.some(
+            (choice: any) =>
+              choice.correct === true &&
+              choice.answer.trim().toLowerCase() ===
+                response.trim().toLowerCase()
           );
-          if (
-            response.trim().toLowerCase() ===
-            correctChoice.answer.trim().toLowerCase()
-          ) {
+
+          if (isCorrect) {
             questionPoints = question.points;
           }
         }

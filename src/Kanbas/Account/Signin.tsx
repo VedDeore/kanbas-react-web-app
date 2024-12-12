@@ -27,52 +27,51 @@ export default function Signin() {
       >
         Northeastern University
       </h2>
-      <form onSubmit={signin}>
-        <label htmlFor="wd-username">myNortheastern Username</label>
-        <input
-          id="wd-username"
-          placeholder="Username"
-          defaultValue={credentials.username}
-          onChange={(e) =>
-            setCredentials({ ...credentials, username: e.target.value })
-          }
-          className="form-control mb-2"
-          required
-        />
-        <div className="mb-3">
-          <label htmlFor="wd-password">myNortheastern Password</label>
-          <div className="position-relative">
-            <input
-              id="wd-password"
-              placeholder="Password"
-              type={showPassword ? "text" : "password"}
-              defaultValue={credentials.password}
-              onChange={(e) =>
-                setCredentials({ ...credentials, password: e.target.value })
-              }
-              className="form-control mb-2 pe-5"
-              required
-            />
-            <span
-              className="position-absolute top-50 end-0 translate-middle-y"
-              onClick={() => setShowPassword(!showPassword)}
-              style={{
-                cursor: "pointer",
-                padding: "0.5rem",
-              }}
-            >
-              <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-            </span>
-          </div>
+      <label htmlFor="wd-username">myNortheastern Username</label>
+      <input
+        id="wd-username"
+        placeholder="Username"
+        defaultValue={credentials.username}
+        onChange={(e) =>
+          setCredentials({ ...credentials, username: e.target.value })
+        }
+        className="form-control mb-2"
+        required
+      />
+      <div className="mb-3">
+        <label htmlFor="wd-password">myNortheastern Password</label>
+        <div className="position-relative">
+          <input
+            id="wd-password"
+            placeholder="Password"
+            type={showPassword ? "text" : "password"}
+            defaultValue={credentials.password}
+            onChange={(e) =>
+              setCredentials({ ...credentials, password: e.target.value })
+            }
+            className="form-control mb-2 pe-5"
+            required
+          />
+          <span
+            className="position-absolute top-50 end-0 translate-middle-y"
+            onClick={() => setShowPassword(!showPassword)}
+            style={{
+              cursor: "pointer",
+              padding: "0.5rem",
+            }}
+          >
+            <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+          </span>
         </div>
-        <button
-          id="wd-signin-btn"
-          className="btn btn-danger w-100 mb-2"
-          type="submit"
-        >
-          Log In
-        </button>
-      </form>
+      </div>
+      <button
+        id="wd-signin-btn"
+        className="btn btn-danger w-100 mb-2"
+        type="submit"
+        onClick={signin}
+      >
+        Log In
+      </button>
       <Link
         id="wd-signup-link"
         to="/Kanbas/Account/Signup"

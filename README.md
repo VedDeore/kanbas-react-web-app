@@ -1,46 +1,63 @@
-# Getting Started with Create React App
+# Kanbas - Learning Content Management System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### **Technologies Used:** React, TypeScript, Node.js, MongoDB, Bootstrap, Express.js, REST API
 
-## Available Scripts
+### **Backend Repository**
 
-In the project directory, you can run:
+- The backend of the Kanbas project is hosted in a separate repository. You can find the backend repository [here](https://github.com/VedDeore/kanbas-node-server-app/tree/project).
 
-### `npm start`
+- This repository contains all the server-side code, including the API endpoints, database models, and business logic necessary for the Kanbas platform.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Project Overview:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **Kanbas** is a full-stack educational web application designed to streamline learning and teaching processes for students, faculty, and administrators. It provides a user-friendly platform to manage courses, assignments, and quizzes, fostering a collaborative and efficient learning environment.
 
-### `npm test`
+- The application is built using modern web technologies, ensuring scalability, performance, and an intuitive user experience. Hosted on Netlify and Render, it leverages React for the front-end, Node.js and Express.js for the back-end, and MongoDB for data storage.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Key Features:
 
-### `npm run build`
+- Admin: The Admin has full control over user management, ensuring a smooth operational environment:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  - Add, view, edit, and delete users efficiently.
+  - Oversee the platform to maintain a structured and well-managed user base.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Faculty: Faculty members are equipped with tools to create and manage course content seamlessly:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  - Design and organize courses with modules, assignments, and quizzes.
+  - Update or remove courses and associated materials as needed.
+  - Grade assignments and quizzes, enabling streamlined student evaluation.
 
-### `npm run eject`
+- Student: Students enjoy a user-friendly platform to enhance their learning experience:
+  - Enroll in or unenroll from courses with ease.
+  - Access course materials, take quizzes, and submit assignments.
+  - Track performance through scores and manage personal profiles.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Technologies Used:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Front-End:**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+  - React: For building a dynamic and responsive user interface.
+  - Bootstrap: For styling and ensuring a consistent design.
+  - TypeScript: For improved code maintainability and type safety.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- **Back-End:**
 
-## Learn More
+  - Node.js: For server-side logic and APIs.
+  - Express.js: For handling HTTP requests and routing.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Database:**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  - MongoDB: For storing and managing application data.
+
+- **APIs:**
+
+  - RESTful APIs: For efficient communication between the front-end and back-end.
+
+- **Hosting:**
+
+  - Netlify: Hosting the front-end for fast and reliable access.
+  - Render: Hosting the back-end for seamless server operations.
+
+---
+
+**© 2024. All rights reserved.**

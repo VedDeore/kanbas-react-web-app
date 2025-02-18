@@ -2,9 +2,10 @@
 
 #### **Technologies Used:** React, TypeScript, Node.js, MongoDB, Bootstrap, Express.js, REST API
 
-### **Live Website:**
+### **Live Website and Demo:**
 
 - You can view the live version of the Kanbas - A Learning Content Management System [here](https://project--ved-kanbas-react-web-app.netlify.app/?#/Kanbas/Account/Signin).
+- Demo is available [here](https://drive.google.com/file/d/1JPbCeaAXi_p6OdA-p5W1DbONeNkEH2sf/view?usp=drive_link)
 
 ### **Backend Repository**
 
